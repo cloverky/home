@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>cloverky.cloud</title>
+<meta name="description" content="cloverky가 만드는 AI 프로덕트 모음. 각 프로젝트는 서브도메인에서 돌아갑니다.">
+<meta property="og:title" content="cloverky.cloud">
+<meta property="og:description" content="cloverky가 만드는 AI 프로덕트 모음. 각 프로젝트는 서브도메인에서 돌아갑니다.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://cloverky.cloud/">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><g fill='%23226647'><circle cx='16' cy='8' r='6.4'/><circle cx='24' cy='16' r='6.4'/><circle cx='16' cy='24' r='6.4'/><circle cx='8' cy='16' r='6.4'/></g></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+KR:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  color-scheme: light dark;
+  --paper:#E9EDF3;
+  --raised:#FAFBFD;
+  --ink:#12161D;
+  --soft:#5A6478;
+  --rule:#C9D2E0;
+  --clover:#226647;
+  --clover-wash:rgba(34,102,71,.09);
+  --mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  --sans:"IBM Plex Sans KR","IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --shadow:0 1px 2px rgba(18,22,29,.05), 0 12px 32px -18px rgba(18,22,29,.32);
+  --shadow-lift:0 1px 2px rgba(18,22,29,.05), 0 22px 44px -22px rgba(18,22,29,.42);
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --paper:#0E1218;
+    --raised:#161C25;
+    --ink:#E7ECF3;
+    --soft:#8590A3;
+    --rule:#252E3B;
+    --clover:#5ED39B;
+    --clover-wash:rgba(94,211,155,.11);
+    --shadow:0 1px 2px rgba(0,0,0,.4), 0 12px 32px -18px rgba(0,0,0,.8);
+    --shadow-lift:0 1px 2px rgba(0,0,0,.4), 0 22px 44px -22px rgba(0,0,0,.95);
+  }
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;
+  background:var(--paper);
+  color:var(--ink);
+  font-family:var(--sans);
+  font-size:16px;
+  line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--clover);outline-offset:3px;border-radius:3px}
+
+.wrap{max-width:940px;margin:0 auto;padding:0 28px}
+
+/* top bar */
+.topbar{
+  display:flex;align-items:center;justify-content:space-between;gap:16px;
+  padding:22px 0 0;
+  font-family:var(--mono);font-size:12px;letter-spacing:.06em;color:var(--soft);
+}
+.mark{display:block;width:20px;height:20px;color:var(--clover)}
+.topbar-link{text-decoration:none;color:var(--soft);transition:color .18s ease}
+.topbar-link:hover{color:var(--clover)}
+
+.dot{
+  width:7px;height:7px;border-radius:50%;
+  background:var(--clover);flex:none;
+  animation:pulse 2.8s ease-out infinite;
+}
+
+/* apex */
+.apex{padding:96px 0 0}
+.eyebrow{
+  font-family:var(--mono);font-size:11.5px;font-weight:500;
+  letter-spacing:.18em;text-transform:uppercase;color:var(--soft);
+  margin:0 0 20px;
+  animation:rise .6s .05s ease both;
+}
+.apex-host{
+  font-family:var(--mono);font-weight:600;
+  font-size:clamp(2.1rem,7.4vw,4.5rem);
+  line-height:1.02;letter-spacing:-.035em;
+  margin:0;word-break:break-word;
+  animation:rise .7s .12s ease both;
+}
+.apex-host .tld{color:var(--clover)}
+.apex-lede{
+  margin:26px 0 0;max-width:46ch;
+  font-size:clamp(1rem,2.1vw,1.125rem);
+  color:var(--soft);text-wrap:pretty;
+  animation:rise .6s .24s ease both;
+}
+
+/* tree */
+.tree{position:relative;padding:74px 0 0 46px}
+.tree-line{
+  position:absolute;left:13px;top:14px;bottom:0;width:1px;
+  background:var(--rule);transform-origin:top;
+  animation:grow-y .75s .35s cubic-bezier(.2,.75,.3,1) both;
+}
+.zone-comment{
+  font-family:var(--mono);font-size:12px;color:var(--soft);
+  margin:0 0 16px;letter-spacing:.01em;
+  animation:rise .6s .85s ease both;
+}
+
+/* record */
+.record{
+  position:relative;display:block;text-decoration:none;
+  background:var(--raised);
+  border:1px solid var(--rule);
+  border-radius:14px;
+  padding:30px 30px 26px;
+  box-shadow:var(--shadow);
+  transition:border-color .2s ease, transform .2s ease, box-shadow .2s ease;
+  animation:rise .6s 1s ease both;
+}
+.record + .record{margin-top:18px}
+.record::before{
+  content:"";position:absolute;left:-33px;top:40px;
+  width:33px;height:1px;background:var(--rule);
+  transform-origin:left;
+  animation:grow-x .45s 1s ease both;
+}
+.record:hover{
+  border-color:var(--clover);
+  transform:translateY(-3px);
+  box-shadow:var(--shadow-lift);
+}
+.record-head{
+  display:flex;align-items:baseline;justify-content:space-between;
+  gap:12px;flex-wrap:wrap;margin-bottom:12px;
+}
+.record-host{
+  font-family:var(--mono);font-weight:500;
+  font-size:13px;letter-spacing:.01em;
+  color:var(--clover);margin:0;word-break:break-word;
+}
+.record-host .sub{color:var(--soft)}
+.record-status{
+  display:inline-flex;align-items:center;gap:7px;flex:none;
+  font-family:var(--mono);font-size:11px;font-weight:500;
+  letter-spacing:.14em;color:var(--soft);
+}
+.record-name{margin:0 0 10px;font-size:1.75rem;font-weight:600;letter-spacing:-.02em;line-height:1.2}
+.record-desc{margin:0;color:var(--soft);max-width:52ch;text-wrap:pretty}
+.record-foot{
+  display:flex;align-items:center;justify-content:space-between;
+  gap:18px;flex-wrap:wrap;
+  margin-top:26px;padding-top:20px;border-top:1px solid var(--rule);
+}
+.stack{font-family:var(--mono);font-size:12px;color:var(--soft);letter-spacing:.02em}
+.open{
+  font-family:var(--mono);font-size:13px;font-weight:500;
+  color:var(--clover);display:inline-flex;align-items:center;gap:8px;
+}
+.open .arrow{display:inline-block;transition:transform .2s ease}
+.record:hover .arrow{transform:translateX(4px)}
+
+/* footer */
+.foot{
+  margin-top:110px;padding:26px 0 44px;
+  border-top:1px solid var(--rule);
+  display:flex;align-items:center;justify-content:space-between;
+  gap:14px;flex-wrap:wrap;
+  font-family:var(--mono);font-size:12px;color:var(--soft);letter-spacing:.03em;
+}
+.foot-links{display:flex;gap:22px}
+.foot a{text-decoration:none;color:var(--soft);transition:color .18s ease}
+.foot a:hover{color:var(--clover)}
+
+@keyframes grow-y{from{transform:scaleY(0)}to{transform:scaleY(1)}}
+@keyframes grow-x{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+@keyframes rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@keyframes pulse{
+  0%{box-shadow:0 0 0 0 var(--clover-wash)}
+  70%{box-shadow:0 0 0 7px transparent}
+  100%{box-shadow:0 0 0 0 transparent}
+}
+
+@media (max-width:560px){
+  .wrap{padding:0 20px}
+  .apex{padding-top:64px}
+  .tree{padding:56px 0 0 26px}
+  .tree-line{left:6px}
+  .record{padding:24px 22px 22px;border-radius:12px}
+  .record::before{left:-20px;width:20px;top:34px}
+  .foot{margin-top:76px}
+}
+
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{
+    animation-duration:.001ms !important;
+    animation-iteration-count:1 !important;
+    transition-duration:.001ms !important;
+  }
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="topbar">
+    <svg class="mark" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><g fill="currentColor"><circle cx="16" cy="8" r="6.4"/><circle cx="24" cy="16" r="6.4"/><circle cx="16" cy="24" r="6.4"/><circle cx="8" cy="16" r="6.4"/></g></svg>
+    <a class="topbar-link" href="https://github.com/cloverky">github.com/cloverky</a>
+  </header>
+
+  <main>
+    <section class="apex">
+      <p class="eyebrow">Team.Seuk — cloverky</p>
+      <h1 class="apex-host">cloverky<span class="tld">.cloud</span></h1>
+      <p class="apex-lede">AI 프로덕트를 만듭니다. 만든 것들은 아래 서브도메인에서 각각 돌아가고 있습니다.</p>
+    </section>
+
+    <section class="tree" aria-label="프로젝트">
+      <span class="tree-line" aria-hidden="true"></span>
+      <p class="zone-comment">;; zone: cloverky.cloud</p>
+
+      <!-- 프로젝트 추가: 아래 <a class="record"> 블록을 통째로 복사해서 값만 바꾸면 됩니다. -->
+      <a class="record" href="https://fridge.cloverky.cloud">
+        <div class="record-head">
+          <p class="record-host">fridge<span class="sub">.cloverky.cloud</span></p>
+          <span class="record-status"><span class="dot" aria-hidden="true"></span>LIVE</span>
+        </div>
+        <h2 class="record-name">FridgeAI</h2>
+        <p class="record-desc">AI가 재고를 챙기고 취향에 맞는 레시피를 추천하는 냉장고 관리 서비스.</p>
+        <div class="record-foot">
+          <span class="stack">Next.js · Vercel</span>
+          <span class="open">열기 <span class="arrow" aria-hidden="true">→</span></span>
+        </div>
+      </a>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <span class="foot-links">
+      <a href="https://github.com/cloverky">GitHub</a>
+      <a href="mailto:hisoyeon04@gmail.com">메일</a>
+    </span>
+    <span>© 2026 cloverky</span>
+  </footer>
+
+</div>
+</body>
+</html>
