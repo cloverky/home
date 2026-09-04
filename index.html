@@ -158,9 +158,14 @@ a{color:inherit}
   gap:14px;flex-wrap:wrap;
   font-family:var(--mono);font-size:12px;color:var(--soft);letter-spacing:.03em;
 }
-.foot-links{display:flex;gap:22px}
-.foot a{text-decoration:none;color:var(--soft);transition:color .18s ease}
+.foot-links{display:flex;flex-direction:column;gap:9px}
+.foot a{
+  display:inline-flex;align-items:center;gap:10px;
+  font-size:13px;text-decoration:none;color:var(--soft);
+  transition:color .18s ease;
+}
 .foot a:hover{color:var(--clover)}
+.foot-icon{width:15px;height:15px;flex:none;color:var(--clover)}
 
 @keyframes grow-y{from{transform:scaleY(0)}to{transform:scaleY(1)}}
 @keyframes grow-x{from{transform:scaleX(0)}to{transform:scaleX(1)}}
@@ -237,8 +242,14 @@ a{color:inherit}
 
   <footer class="foot">
     <span class="foot-links">
-      <a href="https://github.com/cloverky">GitHub</a>
-      <a href="mailto:hisoyeon04@gmail.com">hisoyeon04@gmail.com</a>
+      <a href="mailto:hisoyeon04@gmail.com">
+        <svg class="foot-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 6 10-6"/></svg>
+        hisoyeon04@gmail.com
+      </a>
+      <a href="https://github.com/cloverky">
+        <svg class="foot-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="18" r="3"/><circle cx="6" cy="6" r="3"/><circle cx="18" cy="6" r="3"/><path d="M18 9v2c0 .6-.4 1-1 1H7c-.6 0-1-.4-1-1V9"/><path d="M12 12v3"/></svg>
+        github.com/cloverky
+      </a>
     </span>
     <span>© 2026 cloverky</span>
   </footer>
