@@ -22,7 +22,6 @@
   --soft:#5A6478;
   --rule:#C9D2E0;
   --clover:#226647;
-  --clover-wash:rgba(34,102,71,.09);
   --mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
   --sans:"IBM Plex Sans KR","IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
   --shadow:0 1px 2px rgba(18,22,29,.05), 0 12px 32px -18px rgba(18,22,29,.32);
@@ -36,7 +35,6 @@
     --soft:#8590A3;
     --rule:#252E3B;
     --clover:#5ED39B;
-    --clover-wash:rgba(94,211,155,.11);
     --shadow:0 1px 2px rgba(0,0,0,.4), 0 12px 32px -18px rgba(0,0,0,.8);
     --shadow-lift:0 1px 2px rgba(0,0,0,.4), 0 22px 44px -22px rgba(0,0,0,.95);
   }
@@ -61,14 +59,6 @@ a{color:inherit}
 /* top bar */
 .topbar{display:flex;align-items:center;padding:22px 0 0}
 .mark{display:block;width:32px;height:32px;color:var(--clover)}
-
-.dot{
-  width:7px;height:7px;border-radius:50%;
-  background:var(--clover);flex:none;
-  animation:pulse 2.8s ease-out infinite;
-}
-/* 지금 돌고 있지 않거나 앱이 아닌 항목 — 초록 점은 "열면 바로 쓸 수 있다"는 뜻으로만 쓴다 */
-.dot--idle{background:var(--soft);animation:none}
 
 /* apex */
 .apex{padding:96px 0 0}
@@ -120,21 +110,12 @@ a{color:inherit}
   transform:translateY(-3px);
   box-shadow:var(--shadow-lift);
 }
-.record-head{
-  display:flex;align-items:baseline;justify-content:space-between;
-  gap:12px;flex-wrap:wrap;margin-bottom:12px;
-}
 .record-host{
   font-family:var(--mono);font-weight:500;
   font-size:13px;letter-spacing:.01em;
-  color:var(--clover);margin:0;word-break:break-word;
+  color:var(--clover);margin:0 0 12px;word-break:break-word;
 }
 .record-host .sub{color:var(--soft)}
-.record-status{
-  display:inline-flex;align-items:center;gap:7px;flex:none;
-  font-family:var(--mono);font-size:11px;font-weight:500;
-  letter-spacing:.14em;color:var(--soft);
-}
 .record-name{
   display:flex;align-items:center;gap:11px;
   margin:0 0 10px;font-size:1.75rem;font-weight:600;letter-spacing:-.02em;line-height:1.2;
@@ -174,11 +155,6 @@ a{color:inherit}
 @keyframes grow-y{from{transform:scaleY(0)}to{transform:scaleY(1)}}
 @keyframes grow-x{from{transform:scaleX(0)}to{transform:scaleX(1)}}
 @keyframes rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
-@keyframes pulse{
-  0%{box-shadow:0 0 0 0 var(--clover-wash)}
-  70%{box-shadow:0 0 0 7px transparent}
-  100%{box-shadow:0 0 0 0 transparent}
-}
 
 @media (max-width:560px){
   .wrap{padding:0 20px}
@@ -217,10 +193,7 @@ a{color:inherit}
 
       <!-- 프로젝트 추가: 아래 <a class="record"> 블록을 통째로 복사해서 값만 바꾸면 됩니다. -->
       <a class="record" href="https://fridge.cloverky.cloud">
-        <div class="record-head">
-          <p class="record-host">fridge<span class="sub">.cloverky.cloud</span></p>
-          <span class="record-status"><span class="dot" aria-hidden="true"></span>LIVE</span>
-        </div>
+        <p class="record-host">fridge<span class="sub">.cloverky.cloud</span></p>
         <h2 class="record-name"><svg class="record-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="5" y="2" width="14" height="20" rx="2.5"/><path d="M5 9h14"/><path d="M15.5 5.2v2.2"/><path d="M15.5 11.2v2.6"/></svg>FridgeAI</h2>
         <p class="record-desc">AI가 재고를 챙기고 취향에 맞는 레시피를 추천하는 냉장고 관리 서비스.</p>
         <div class="record-foot">
@@ -230,10 +203,7 @@ a{color:inherit}
       </a>
 
       <a class="record" href="https://yaksok.cloverky.cloud">
-        <div class="record-head">
-          <p class="record-host">yaksok<span class="sub">.cloverky.cloud</span></p>
-          <span class="record-status"><span class="dot dot--idle" aria-hidden="true"></span>DEMO</span>
-        </div>
+        <p class="record-host">yaksok<span class="sub">.cloverky.cloud</span></p>
         <h2 class="record-name"><svg class="record-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m10.5 20.5 10-10a4.95 4.95 0 1 0-7-7l-10 10a4.95 4.95 0 1 0 7 7Z"/><path d="m8.5 8.5 7 7"/></svg>Yaksok</h2>
         <p class="record-desc">알약을 카메라로 비추면 모양·색·각인을 읽어 식약처 낱알식별 DB와 대조하고, 복약 상담까지 안내합니다.</p>
         <div class="record-foot">

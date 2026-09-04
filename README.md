@@ -21,14 +21,6 @@
 | `.record-desc` | 한 줄 설명 |
 | `.stack` | `Jekyll · GitHub Pages` |
 
-상태 배지는 "열면 뭘 보게 되는지"를 답한다. 초록 점(`dot`)은 **열면 바로 쓸 수 있는 앱**에만 붙인다.
-
-| 배지 | 뜻 | 점 |
-|---|---|---|
-| `LIVE` | 앱이 정상 동작 | `<span class="dot">` |
-| `DEMO` | UI는 뜨지만 기능이 제한적 (예: 백엔드 미가동) | `<span class="dot dot--idle">` |
-| `DOCS` | 앱이 아니라 문서 사이트 | `<span class="dot dot--idle">` |
-
 카드를 4개 이상으로 늘리면 등장 애니메이션 딜레이(`.record:nth-of-type(...)`)도 한 줄 추가한다.
 
 ## 도메인 구성
