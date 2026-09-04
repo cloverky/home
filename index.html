@@ -73,6 +73,8 @@ a{color:inherit}
   background:var(--clover);flex:none;
   animation:pulse 2.8s ease-out infinite;
 }
+/* 지금 돌고 있지 않거나 앱이 아닌 항목 — 초록 점은 "열면 바로 쓸 수 있다"는 뜻으로만 쓴다 */
+.dot--idle{background:var(--soft);animation:none}
 
 /* apex */
 .apex{padding:96px 0 0}
@@ -128,6 +130,8 @@ a{color:inherit}
   transform-origin:left;
   animation:grow-x .45s 1s ease both;
 }
+.record:nth-of-type(2),.record:nth-of-type(2)::before{animation-delay:1.12s}
+.record:nth-of-type(3),.record:nth-of-type(3)::before{animation-delay:1.24s}
 .record:hover{
   border-color:var(--clover);
   transform:translateY(-3px);
@@ -232,6 +236,32 @@ a{color:inherit}
         <p class="record-desc">AI가 재고를 챙기고 취향에 맞는 레시피를 추천하는 냉장고 관리 서비스.</p>
         <div class="record-foot">
           <span class="stack">Next.js · Vercel</span>
+          <span class="open">열기 <span class="arrow" aria-hidden="true">→</span></span>
+        </div>
+      </a>
+
+      <a class="record" href="https://yaksok.cloverky.cloud">
+        <div class="record-head">
+          <p class="record-host">yaksok<span class="sub">.cloverky.cloud</span></p>
+          <span class="record-status"><span class="dot dot--idle" aria-hidden="true"></span>DEMO</span>
+        </div>
+        <h2 class="record-name">Yaksok</h2>
+        <p class="record-desc">알약을 카메라로 비추면 모양·색·각인을 읽어 식약처 낱알식별 DB와 대조하고, 복약 상담까지 안내합니다.</p>
+        <div class="record-foot">
+          <span class="stack">React · FastAPI · Gemini Vision</span>
+          <span class="open">열기 <span class="arrow" aria-hidden="true">→</span></span>
+        </div>
+      </a>
+
+      <a class="record" href="https://ats.cloverky.cloud">
+        <div class="record-head">
+          <p class="record-host">ats<span class="sub">.cloverky.cloud</span></p>
+          <span class="record-status"><span class="dot dot--idle" aria-hidden="true"></span>DOCS</span>
+        </div>
+        <h2 class="record-name">Eval-ATS</h2>
+        <p class="record-desc">GraphRAG 파이프라인으로 지원자를 정량 평가하는 채용 관리 시스템. 개발 문서 사이트입니다.</p>
+        <div class="record-foot">
+          <span class="stack">Jekyll · GitHub Pages</span>
           <span class="open">열기 <span class="arrow" aria-hidden="true">→</span></span>
         </div>
       </a>
