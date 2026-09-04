@@ -96,6 +96,7 @@ a{color:inherit}
   margin:26px 0 0;max-width:46ch;
   font-size:clamp(1rem,2.1vw,1.125rem);
   color:var(--soft);text-wrap:pretty;
+  word-break:keep-all;  /* 한글이 단어 중간에서 끊기는 것 방지 */
   animation:rise .6s .24s ease both;
 }
 
@@ -153,7 +154,7 @@ a{color:inherit}
   letter-spacing:.14em;color:var(--soft);
 }
 .record-name{margin:0 0 10px;font-size:1.75rem;font-weight:600;letter-spacing:-.02em;line-height:1.2}
-.record-desc{margin:0;color:var(--soft);max-width:52ch;text-wrap:pretty}
+.record-desc{margin:0;color:var(--soft);max-width:52ch;text-wrap:pretty;word-break:keep-all}
 .record-foot{
   display:flex;align-items:center;justify-content:space-between;
   gap:18px;flex-wrap:wrap;
