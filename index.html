@@ -87,7 +87,7 @@ a{color:inherit}
 
 /* record */
 .record{
-  position:relative;display:block;text-decoration:none;
+  position:relative;display:block;
   background:var(--raised);
   border:1px solid var(--rule);
   border-radius:14px;
@@ -96,6 +96,7 @@ a{color:inherit}
   transition:border-color .2s ease, transform .2s ease, box-shadow .2s ease;
   animation:rise .6s 1s ease both;
 }
+.record-link{display:block;text-decoration:none;color:inherit}
 .record + .record{margin-top:18px}
 .record::before{
   content:"";position:absolute;left:-33px;top:40px;
@@ -128,12 +129,20 @@ a{color:inherit}
   margin-top:26px;padding-top:20px;border-top:1px solid var(--rule);
 }
 .stack{font-family:var(--mono);font-size:12px;color:var(--soft);letter-spacing:.02em}
+.record-actions{display:inline-flex;align-items:center;gap:14px}
+.kanban{
+  font-family:var(--mono);font-size:12px;font-weight:500;
+  color:var(--soft);text-decoration:none;
+  border:1px solid var(--rule);border-radius:999px;
+  padding:4px 12px;transition:color .18s ease, border-color .18s ease;
+}
+.kanban:hover{color:var(--clover);border-color:var(--clover)}
 .open{
   font-family:var(--mono);font-size:13px;font-weight:500;
-  color:var(--clover);display:inline-flex;align-items:center;gap:8px;
+  color:var(--clover);text-decoration:none;display:inline-flex;align-items:center;gap:8px;
 }
 .open .arrow{display:inline-block;transition:transform .2s ease}
-.record:hover .arrow{transform:translateX(4px)}
+.open:hover .arrow{transform:translateX(4px)}
 
 /* footer */
 .foot{
@@ -191,26 +200,50 @@ a{color:inherit}
     <section class="tree" aria-label="프로젝트">
       <span class="tree-line" aria-hidden="true"></span>
 
-      <!-- 프로젝트 추가: 아래 <a class="record"> 블록을 통째로 복사해서 값만 바꾸면 됩니다. -->
-      <a class="record" href="https://fridge.cloverky.cloud">
-        <p class="record-host">fridge<span class="sub">.cloverky.cloud</span></p>
-        <h2 class="record-name"><svg class="record-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="5" y="2" width="14" height="20" rx="2.5"/><path d="M5 9h14"/><path d="M15.5 5.2v2.2"/><path d="M15.5 11.2v2.6"/></svg>FridgeAI</h2>
-        <p class="record-desc">AI가 재고를 챙기고 취향에 맞는 레시피를 추천하는 냉장고 관리 서비스.</p>
+      <!-- 프로젝트 추가: 아래 <div class="record"> 블록을 통째로 복사해서 값만 바꾸면 됩니다. -->
+      <div class="record">
+        <a class="record-link" href="https://fridge.cloverky.cloud">
+          <p class="record-host">fridge<span class="sub">.cloverky.cloud</span></p>
+          <h2 class="record-name"><svg class="record-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="5" y="2" width="14" height="20" rx="2.5"/><path d="M5 9h14"/><path d="M15.5 5.2v2.2"/><path d="M15.5 11.2v2.6"/></svg>FridgeAI</h2>
+          <p class="record-desc">AI가 재고를 챙기고 취향에 맞는 레시피를 추천하는 냉장고 관리 서비스.</p>
+        </a>
         <div class="record-foot">
           <span class="stack">Next.js · Vercel</span>
-          <span class="open">열기 <span class="arrow" aria-hidden="true">→</span></span>
+          <span class="record-actions">
+            <a class="kanban" href="https://fridge.cloverky.cloud/kanban/">칸반</a>
+            <a class="open" href="https://fridge.cloverky.cloud">열기 <span class="arrow" aria-hidden="true">→</span></a>
+          </span>
         </div>
-      </a>
+      </div>
 
-      <a class="record" href="https://yaksok.cloverky.cloud">
-        <p class="record-host">yaksok<span class="sub">.cloverky.cloud</span></p>
-        <h2 class="record-name"><svg class="record-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m10.5 20.5 10-10a4.95 4.95 0 1 0-7-7l-10 10a4.95 4.95 0 1 0 7 7Z"/><path d="m8.5 8.5 7 7"/></svg>Yaksok</h2>
-        <p class="record-desc">알약을 카메라로 비추면 모양·색·각인을 읽어 식약처 낱알식별 DB와 대조하고, 복약 상담까지 안내합니다.</p>
+      <div class="record">
+        <a class="record-link" href="https://yaksok.cloverky.cloud">
+          <p class="record-host">yaksok<span class="sub">.cloverky.cloud</span></p>
+          <h2 class="record-name"><svg class="record-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m10.5 20.5 10-10a4.95 4.95 0 1 0-7-7l-10 10a4.95 4.95 0 1 0 7 7Z"/><path d="m8.5 8.5 7 7"/></svg>Yaksok</h2>
+          <p class="record-desc">알약을 카메라로 비추면 모양·색·각인을 읽어 식약처 낱알식별 DB와 대조하고, 복약 상담까지 안내합니다.</p>
+        </a>
         <div class="record-foot">
           <span class="stack">React · FastAPI · Gemini Vision</span>
-          <span class="open">열기 <span class="arrow" aria-hidden="true">→</span></span>
+          <span class="record-actions">
+            <a class="kanban" href="https://yaksok.cloverky.cloud/kanban/">칸반</a>
+            <a class="open" href="https://yaksok.cloverky.cloud">열기 <span class="arrow" aria-hidden="true">→</span></a>
+          </span>
         </div>
-      </a>
+      </div>
+
+      <div class="record">
+        <a class="record-link" href="https://yangdongi.cloverky.cloud">
+          <p class="record-host">yangdongi<span class="sub">.cloverky.cloud</span></p>
+          <h2 class="record-name"><svg class="record-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 7h16l-1.4 12.2a2 2 0 0 1-2 1.8H7.4a2 2 0 0 1-2-1.8Z"/><path d="M8.5 7a3.5 3.5 0 0 1 7 0"/></svg>Yangdongi</h2>
+          <p class="record-desc">동양미래대학교 학사 정보를 자연어로 물어보면 공지·시간표·학점을 찾아 정리해주는 학생용 AI 챗봇.</p>
+        </a>
+        <div class="record-foot">
+          <span class="stack">Flask · FastAPI · RAG</span>
+          <span class="record-actions">
+            <a class="open" href="https://yangdongi.cloverky.cloud">열기 <span class="arrow" aria-hidden="true">→</span></a>
+          </span>
+        </div>
+      </div>
     </section>
   </main>
 
