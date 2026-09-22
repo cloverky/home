@@ -189,43 +189,65 @@ body{
 
 /* projects */
 .projects{
-  display:flex;gap:20px;
+  display:flex;gap:14px;
   justify-content:center;
   flex-wrap:wrap;
   margin-top:36px;
   padding-bottom:40px;
   width:100%;
-  max-width:480px;
+  max-width:700px;
   transition:margin .3s ease;
 }
 .center.has-chat .projects{margin-top:24px}
 .proj{
-  display:flex;flex-direction:column;align-items:center;gap:7px;
-  text-decoration:none;color:inherit;width:72px;
+  display:flex;flex-direction:column;align-items:center;gap:8px;
+  text-decoration:none;color:inherit;
+  width:148px;
 }
-.proj-icon{
-  width:56px;height:56px;border-radius:14px;
-  background:var(--raised);
+.proj-card{
+  width:148px;height:96px;border-radius:14px;
   border:1px solid var(--rule);
   box-shadow:var(--shadow);
-  display:flex;align-items:center;justify-content:center;
-  color:var(--clover);
+  overflow:hidden;
+  display:flex;flex-direction:column;
   transition:transform .18s,box-shadow .18s;
+  background:var(--raised);
 }
-.proj:hover .proj-icon{transform:translateY(-2px);box-shadow:var(--shadow-md)}
+.proj:hover .proj-card{transform:translateY(-3px);box-shadow:var(--shadow-md)}
+.proj-bar{
+  height:20px;background:var(--paper);border-bottom:1px solid var(--rule);
+  display:flex;align-items:center;padding:0 8px;gap:4px;flex:none;
+}
+.proj-dot{width:5px;height:5px;border-radius:50%;background:var(--rule)}
+.proj-url{
+  font-family:var(--mono);font-size:8px;color:var(--soft);
+  margin-left:4px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;
+}
+.proj-thumb{
+  flex:1;display:flex;align-items:center;justify-content:center;
+  color:rgba(255,255,255,.9);
+}
+.proj-thumb svg{filter:drop-shadow(0 1px 3px rgba(0,0,0,.15))}
 .proj-name{
-  font-family:var(--mono);font-size:10.5px;font-weight:500;
+  font-family:var(--mono);font-size:11px;font-weight:500;
   color:var(--soft);text-align:center;letter-spacing:.01em;
 }
+
+/* per-project colors */
+.thumb-arda  { background:linear-gradient(135deg,#4F6BED 0%,#7B8FFF 100%) }
+.thumb-fridge{ background:linear-gradient(135deg,#226647 0%,#4CAF7D 100%) }
+.thumb-yaksok{ background:linear-gradient(135deg,#2B9E8E 0%,#5EC9B8 100%) }
+.thumb-yang  { background:linear-gradient(135deg,#D97706 0%,#F59E42 100%) }
 
 @keyframes pop{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
 @keyframes blink{0%,80%,100%{opacity:.2}40%{opacity:1}}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.001ms !important;transition-duration:.001ms !important}}
 @media(max-width:480px){
-  .center{padding:0 18px}
+  .center{padding:0 16px}
   .logo-text{font-size:1.5rem}
-  .proj-icon{width:50px;height:50px;border-radius:12px}
-  .proj{width:64px}
+  .projects{gap:10px;max-width:100%}
+  .proj{width:calc(50% - 5px)}
+  .proj-card{width:100%}
 }
 </style>
 </head>
@@ -257,26 +279,50 @@ body{
 
   <nav class="projects" aria-label="프로젝트">
     <a class="proj" href="https://arda.cloverky.cloud">
-      <div class="proj-icon">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      <div class="proj-card">
+        <div class="proj-bar">
+          <div class="proj-dot"></div><div class="proj-dot"></div><div class="proj-dot"></div>
+          <span class="proj-url">arda.cloverky.cloud</span>
+        </div>
+        <div class="proj-thumb thumb-arda">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
       </div>
       <span class="proj-name">Arda</span>
     </a>
     <a class="proj" href="https://fridge.cloverky.cloud">
-      <div class="proj-icon">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2.5"/><path d="M5 9h14"/><path d="M15.5 5.2v2.2"/><path d="M15.5 11.2v2.6"/></svg>
+      <div class="proj-card">
+        <div class="proj-bar">
+          <div class="proj-dot"></div><div class="proj-dot"></div><div class="proj-dot"></div>
+          <span class="proj-url">fridge.cloverky.cloud</span>
+        </div>
+        <div class="proj-thumb thumb-fridge">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2.5"/><path d="M5 9h14"/><path d="M15.5 5.2v2.2"/><path d="M15.5 11.2v2.6"/></svg>
+        </div>
       </div>
       <span class="proj-name">FridgeAI</span>
     </a>
     <a class="proj" href="https://yaksok.cloverky.cloud">
-      <div class="proj-icon">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m10.5 20.5 10-10a4.95 4.95 0 1 0-7-7l-10 10a4.95 4.95 0 1 0 7 7Z"/><path d="m8.5 8.5 7 7"/></svg>
+      <div class="proj-card">
+        <div class="proj-bar">
+          <div class="proj-dot"></div><div class="proj-dot"></div><div class="proj-dot"></div>
+          <span class="proj-url">yaksok.cloverky.cloud</span>
+        </div>
+        <div class="proj-thumb thumb-yaksok">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="m10.5 20.5 10-10a4.95 4.95 0 1 0-7-7l-10 10a4.95 4.95 0 1 0 7 7Z"/><path d="m8.5 8.5 7 7"/></svg>
+        </div>
       </div>
       <span class="proj-name">Yaksok</span>
     </a>
     <a class="proj" href="https://yangdongi.cloverky.cloud">
-      <div class="proj-icon">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16l-1.4 12.2a2 2 0 0 1-2 1.8H7.4a2 2 0 0 1-2-1.8Z"/><path d="M8.5 7a3.5 3.5 0 0 1 7 0"/></svg>
+      <div class="proj-card">
+        <div class="proj-bar">
+          <div class="proj-dot"></div><div class="proj-dot"></div><div class="proj-dot"></div>
+          <span class="proj-url">yangdongi.cloverky.cloud</span>
+        </div>
+        <div class="proj-thumb thumb-yang">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16l-1.4 12.2a2 2 0 0 1-2 1.8H7.4a2 2 0 0 1-2-1.8Z"/><path d="M8.5 7a3.5 3.5 0 0 1 7 0"/></svg>
+        </div>
       </div>
       <span class="proj-name">Yangdongi</span>
     </a>
