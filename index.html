@@ -78,6 +78,7 @@ body{
   margin-bottom:36px;
   transition:margin .3s ease, opacity .3s ease;
   user-select:none;
+  cursor:default;
 }
 /* logo slides to top-left on first chat — handled via JS inline styles */
 .logo-mark{width:44px;height:44px;color:var(--clover)}
@@ -340,7 +341,7 @@ const FAQ=[
   {keys:['스택','기술','언어','tech','framework'],answer:'주로 사용하는 기술 스택이에요:\n\n**Frontend** — React, Next.js, TypeScript\n**Backend** — FastAPI, Flask, Python\n**AI/ML** — Gemini Vision, RAG, QLoRA\n**Infra** — AWS, Vercel, Docker, PostgreSQL'},
   {keys:['연락','이메일','contact','email','메일'],answer:'📧 <a href="mailto:hisoyeon04@gmail.com">hisoyeon04@gmail.com</a>\n🐙 <a href="https://github.com/cloverky" target="_blank">github.com/cloverky</a>'},
   {keys:['github','깃허브','코드','레포'],answer:'🐙 <a href="https://github.com/cloverky" target="_blank">github.com/cloverky</a>'},
-  {keys:['안녕','hi','hello','헬로','반가'],answer:'안녕하세요! 👋 cloverky.cloud에 오신 걸 환영해요. 궁금한 거 편하게 물어보세요!'}
+  {keys:['안녕','하이','hi','hello','헬로','반가','ㅎㅇ'],answer:'안녕하세요! 👋 cloverky.cloud에 오신 걸 환영해요. 궁금한 거 편하게 물어보세요!'}
 ];
 
 function renderMd(t){
@@ -391,7 +392,7 @@ function animateLogo(){
   const logo=document.getElementById('logo');
   const r=logo.getBoundingClientRect();
   // snap to fixed at current position (no transition yet)
-  logo.style.cssText=`position:fixed;top:${r.top}px;left:${r.left}px;width:${r.width}px;margin:0;z-index:50;transform-origin:top left`;
+  logo.style.cssText=`position:fixed;top:${r.top}px;left:${r.left}px;width:${r.width}px;margin:0;z-index:50;transform-origin:top left;cursor:pointer`;
   requestAnimationFrame(()=>requestAnimationFrame(()=>{
     logo.style.transition='top .45s cubic-bezier(.4,0,.2,1),left .45s cubic-bezier(.4,0,.2,1),transform .45s cubic-bezier(.4,0,.2,1)';
     logo.style.top='16px';
@@ -411,6 +412,19 @@ function send(q){
 }
 
 document.getElementById('form').addEventListener('submit',e=>{e.preventDefault();send(document.getElementById('input').value);});
+document.getElementById('logo').addEventListener('click',()=>{
+  if(!logoMoved) return;
+  logoMoved=false;
+  const logo=document.getElementById('logo');
+  logo.style.transition='opacity .25s';
+  logo.style.opacity='0';
+  setTimeout(()=>{
+    logo.style.cssText='';
+    document.getElementById('center').classList.remove('has-chat');
+    document.getElementById('messages').innerHTML='';
+    requestAnimationFrame(()=>{logo.style.transition='opacity .3s';logo.style.opacity='1';});
+  },260);
+});
 document.getElementById('chips').addEventListener('click',e=>{const c=e.target.closest('.chip');if(c)send(c.dataset.q);});
 </script>
 </body>
