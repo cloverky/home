@@ -4,9 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>cloverky.cloud</title>
-<meta name="description" content="cloverky가 만드는 AI 프로덕트 모음. 각 프로젝트는 서브도메인에서 돌아갑니다.">
+<meta name="description" content="cloverky가 만드는 AI 프로덕트 모음.">
 <meta property="og:title" content="cloverky.cloud">
-<meta property="og:description" content="cloverky가 만드는 AI 프로덕트 모음. 각 프로젝트는 서브도메인에서 돌아갑니다.">
+<meta property="og:description" content="cloverky가 만드는 AI 프로덕트 모음.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://cloverky.cloud/">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><g fill='%23226647'><circle cx='16' cy='8' r='6.4'/><circle cx='24' cy='16' r='6.4'/><circle cx='16' cy='24' r='6.4'/><circle cx='8' cy='16' r='6.4'/></g></svg>">
@@ -22,10 +22,11 @@
   --soft:#5A6478;
   --rule:#C9D2E0;
   --clover:#226647;
+  --clover-dim:#1a5038;
   --mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
   --sans:"IBM Plex Sans KR","IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
-  --shadow:0 1px 2px rgba(18,22,29,.05), 0 12px 32px -18px rgba(18,22,29,.32);
-  --shadow-lift:0 1px 2px rgba(18,22,29,.05), 0 22px 44px -22px rgba(18,22,29,.42);
+  --shadow:0 1px 2px rgba(18,22,29,.05), 0 8px 24px -12px rgba(18,22,29,.2);
+  --shadow-lift:0 1px 2px rgba(18,22,29,.05), 0 18px 36px -18px rgba(18,22,29,.36);
 }
 @media (prefers-color-scheme: dark){
   :root{
@@ -35,237 +36,420 @@
     --soft:#8590A3;
     --rule:#252E3B;
     --clover:#5ED39B;
-    --shadow:0 1px 2px rgba(0,0,0,.4), 0 12px 32px -18px rgba(0,0,0,.8);
-    --shadow-lift:0 1px 2px rgba(0,0,0,.4), 0 22px 44px -22px rgba(0,0,0,.95);
+    --clover-dim:#4ab882;
+    --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -12px rgba(0,0,0,.6);
+    --shadow-lift:0 1px 2px rgba(0,0,0,.4), 0 18px 36px -18px rgba(0,0,0,.9);
   }
 }
 
 *,*::before,*::after{box-sizing:border-box}
-html{-webkit-text-size-adjust:100%}
+html,body{height:100%;margin:0}
 body{
-  margin:0;
   background:var(--paper);
   color:var(--ink);
   font-family:var(--sans);
   font-size:16px;
-  line-height:1.65;
+  line-height:1.6;
   -webkit-font-smoothing:antialiased;
+  display:flex;
+  flex-direction:column;
+  min-height:100dvh;
 }
 a{color:inherit}
 :focus-visible{outline:2px solid var(--clover);outline-offset:3px;border-radius:3px}
 
-.wrap{max-width:940px;margin:0 auto;padding:0 28px}
-
-/* top bar */
-.topbar{display:flex;align-items:center;padding:22px 0 0}
-.mark{display:block;width:32px;height:32px;color:var(--clover)}
-
-/* apex */
-.apex{padding:96px 0 0}
-.eyebrow{
-  font-family:var(--mono);font-size:11.5px;font-weight:500;
-  letter-spacing:.18em;text-transform:uppercase;color:var(--soft);
-  margin:0 0 20px;
-  animation:rise .6s .05s ease both;
-}
-.apex-host{
-  font-family:var(--mono);font-weight:600;
-  font-size:clamp(2.1rem,7.4vw,4.5rem);
-  line-height:1.02;letter-spacing:-.035em;
-  margin:0;word-break:break-word;
-  animation:rise .7s .12s ease both;
-}
-.apex-host .tld{color:var(--clover)}
-
-/* tree */
-.tree{position:relative;padding:74px 0 0 46px}
-.tree-line{
-  position:absolute;left:13px;top:14px;bottom:0;width:1px;
-  background:var(--rule);transform-origin:top;
-  animation:grow-y .75s .35s cubic-bezier(.2,.75,.3,1) both;
+/* layout */
+.page{
+  display:flex;
+  flex-direction:column;
+  flex:1;
+  max-width:720px;
+  margin:0 auto;
+  width:100%;
+  padding:0 24px;
 }
 
-/* record */
-.record{
-  position:relative;display:block;
+/* header */
+.topbar{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:28px 0 20px;
+}
+.mark{display:block;width:28px;height:28px;color:var(--clover);flex:none}
+.site-name{
+  font-family:var(--mono);
+  font-weight:600;
+  font-size:15px;
+  letter-spacing:-.01em;
+  color:var(--ink);
+  text-decoration:none;
+}
+.site-name .tld{color:var(--clover)}
+
+/* chat */
+.chat-wrap{
+  flex:1;
+  display:flex;
+  flex-direction:column;
   background:var(--raised);
   border:1px solid var(--rule);
-  border-radius:14px;
-  padding:30px 30px 26px;
+  border-radius:20px;
   box-shadow:var(--shadow);
-  transition:border-color .2s ease, transform .2s ease, box-shadow .2s ease;
-  animation:rise .6s 1s ease both;
+  overflow:hidden;
+  min-height:0;
+  margin-bottom:28px;
 }
-.record-link{display:block;text-decoration:none;color:inherit}
-.record + .record{margin-top:18px}
-.record::before{
-  content:"";position:absolute;left:-33px;top:40px;
-  width:33px;height:1px;background:var(--rule);
-  transform-origin:left;
-  animation:grow-x .45s 1s ease both;
+.messages{
+  flex:1;
+  overflow-y:auto;
+  padding:24px 24px 8px;
+  display:flex;
+  flex-direction:column;
+  gap:14px;
+  scroll-behavior:smooth;
 }
-.record:nth-of-type(2),.record:nth-of-type(2)::before{animation-delay:1.12s}
-.record:nth-of-type(3),.record:nth-of-type(3)::before{animation-delay:1.24s}
-.record:hover{
-  border-color:var(--clover);
+.msg{
+  display:flex;
+  gap:10px;
+  max-width:88%;
+  animation:pop .2s ease both;
+}
+.msg.bot{align-self:flex-start}
+.msg.user{align-self:flex-end;flex-direction:row-reverse}
+.msg-avatar{
+  width:28px;height:28px;border-radius:50%;
+  background:var(--clover);
+  color:#fff;
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--mono);font-size:11px;font-weight:600;
+  flex:none;margin-top:2px;
+}
+.msg.user .msg-avatar{background:var(--rule);color:var(--soft)}
+.msg-bubble{
+  padding:10px 14px;
+  border-radius:14px;
+  font-size:14px;
+  line-height:1.55;
+  word-break:keep-all;
+}
+.msg.bot .msg-bubble{
+  background:var(--paper);
+  border:1px solid var(--rule);
+  border-bottom-left-radius:4px;
+}
+.msg.user .msg-bubble{
+  background:var(--clover);
+  color:#fff;
+  border-bottom-right-radius:4px;
+}
+.msg-bubble a{color:inherit;text-decoration:underline;text-underline-offset:2px}
+
+/* typing indicator */
+.typing .msg-bubble{
+  display:flex;gap:4px;align-items:center;
+  padding:12px 16px;
+}
+.dot{
+  width:6px;height:6px;border-radius:50%;
+  background:var(--soft);
+  animation:blink 1.2s infinite;
+}
+.dot:nth-child(2){animation-delay:.2s}
+.dot:nth-child(3){animation-delay:.4s}
+
+/* chips */
+.chips{
+  display:flex;flex-wrap:wrap;gap:6px;
+  padding:0 24px 12px;
+}
+.chip{
+  font-family:var(--mono);font-size:11.5px;
+  padding:5px 11px;border-radius:20px;
+  background:var(--paper);border:1px solid var(--rule);
+  color:var(--soft);cursor:pointer;
+  transition:border-color .15s,color .15s;
+}
+.chip:hover{border-color:var(--clover);color:var(--clover)}
+
+/* input */
+.input-row{
+  display:flex;gap:8px;
+  padding:12px 16px 16px;
+  border-top:1px solid var(--rule);
+}
+.chat-input{
+  flex:1;
+  background:var(--paper);
+  border:1px solid var(--rule);
+  border-radius:10px;
+  padding:10px 14px;
+  font:inherit;font-size:14px;
+  color:var(--ink);
+  outline:none;
+  transition:border-color .15s;
+}
+.chat-input::placeholder{color:var(--soft)}
+.chat-input:focus{border-color:var(--clover)}
+.send-btn{
+  width:40px;height:40px;border-radius:10px;
+  background:var(--clover);border:none;
+  color:#fff;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  flex:none;
+  transition:background .15s,transform .1s;
+}
+.send-btn:hover{background:var(--clover-dim)}
+.send-btn:active{transform:scale(.94)}
+
+/* project grid */
+.projects{
+  display:flex;
+  gap:14px;
+  justify-content:center;
+  flex-wrap:wrap;
+  padding-bottom:32px;
+}
+.proj{
+  display:flex;flex-direction:column;align-items:center;gap:8px;
+  text-decoration:none;color:inherit;
+  width:80px;
+}
+.proj-icon{
+  width:64px;height:64px;border-radius:16px;
+  background:var(--raised);
+  border:1px solid var(--rule);
+  box-shadow:var(--shadow);
+  display:flex;align-items:center;justify-content:center;
+  color:var(--clover);
+  transition:transform .18s ease,box-shadow .18s ease;
+}
+.proj:hover .proj-icon{
   transform:translateY(-3px);
   box-shadow:var(--shadow-lift);
 }
-.record-host{
-  font-family:var(--mono);font-weight:500;
-  font-size:13px;letter-spacing:.01em;
-  color:var(--clover);margin:0 0 12px;word-break:break-word;
-}
-.record-host .sub{color:var(--soft)}
-.record-name{
-  display:flex;align-items:center;gap:11px;
-  margin:0 0 10px;font-size:1.75rem;font-weight:600;letter-spacing:-.02em;line-height:1.2;
-}
-.record-icon{width:24px;height:24px;flex:none;color:var(--clover)}
-.record-desc{margin:0;color:var(--soft);max-width:52ch;text-wrap:pretty;word-break:keep-all}
-.record-foot{
-  display:flex;align-items:center;justify-content:space-between;
-  gap:18px;flex-wrap:wrap;
-  margin-top:26px;padding-top:20px;border-top:1px solid var(--rule);
-}
-.stack{font-family:var(--mono);font-size:12px;color:var(--soft);letter-spacing:.02em}
-.record-actions{display:inline-flex;align-items:center;gap:14px}
-.open{
-  font-family:var(--mono);font-size:13px;font-weight:500;
-  color:var(--clover);text-decoration:none;display:inline-flex;align-items:center;gap:8px;
-}
-.open .arrow{display:inline-block;transition:transform .2s ease}
-.open:hover .arrow{transform:translateX(4px)}
-
-/* footer */
-.foot{
-  margin-top:110px;padding:26px 0 44px;
-  border-top:1px solid var(--rule);
-  display:flex;align-items:center;justify-content:space-between;
-  gap:14px;flex-wrap:wrap;
-  font-family:var(--mono);font-size:12px;color:var(--soft);letter-spacing:.03em;
-}
-.foot-links{display:flex;flex-direction:column;gap:9px}
-.foot a{
-  display:inline-flex;align-items:center;gap:10px;
-  font-size:13px;text-decoration:none;color:var(--soft);
-  transition:color .18s ease;
-}
-.foot a:hover{color:var(--clover)}
-.foot-icon{width:15px;height:15px;flex:none;color:var(--clover)}
-
-@keyframes grow-y{from{transform:scaleY(0)}to{transform:scaleY(1)}}
-@keyframes grow-x{from{transform:scaleX(0)}to{transform:scaleX(1)}}
-@keyframes rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
-
-@media (max-width:560px){
-  .wrap{padding:0 20px}
-  .apex{padding-top:64px}
-  .tree{padding:56px 0 0 26px}
-  .tree-line{left:6px}
-  .record{padding:24px 22px 22px;border-radius:12px}
-  .record::before{left:-20px;width:20px;top:34px}
-  .foot{margin-top:76px}
+.proj-name{
+  font-family:var(--mono);font-size:11px;font-weight:500;
+  color:var(--soft);letter-spacing:.02em;
+  text-align:center;
 }
 
-@media (prefers-reduced-motion: reduce){
-  *,*::before,*::after{
-    animation-duration:.001ms !important;
-    animation-iteration-count:1 !important;
-    transition-duration:.001ms !important;
-  }
+@keyframes pop{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+@keyframes blink{0%,80%,100%{opacity:.25}40%{opacity:1}}
+
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.001ms !important;transition-duration:.001ms !important}
+}
+@media(max-width:500px){
+  .page{padding:0 16px}
+  .topbar{padding:20px 0 16px}
+  .proj-icon{width:56px;height:56px;border-radius:14px}
+  .proj{width:68px}
 }
 </style>
 </head>
 <body>
-<div class="wrap">
+<div class="page">
 
   <header class="topbar">
-    <svg class="mark" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><g fill="currentColor"><circle cx="16" cy="8" r="6.4"/><circle cx="24" cy="16" r="6.4"/><circle cx="16" cy="24" r="6.4"/><circle cx="8" cy="16" r="6.4"/></g></svg>
+    <svg class="mark" viewBox="0 0 32 32" aria-hidden="true"><g fill="currentColor"><circle cx="16" cy="8" r="6.4"/><circle cx="24" cy="16" r="6.4"/><circle cx="16" cy="24" r="6.4"/><circle cx="8" cy="16" r="6.4"/></g></svg>
+    <a class="site-name" href="/">cloverky<span class="tld">.cloud</span></a>
   </header>
 
-  <main>
-    <section class="apex">
-      <p class="eyebrow">Team.Seuk — cloverky</p>
-      <h1 class="apex-host">cloverky<span class="tld">.cloud</span></h1>
-    </section>
+  <main class="chat-wrap" role="main">
+    <div class="messages" id="messages" aria-live="polite" aria-label="채팅"></div>
 
-    <section class="tree" aria-label="프로젝트">
-      <span class="tree-line" aria-hidden="true"></span>
+    <div class="chips" id="chips">
+      <button class="chip" data-q="어떤 프로젝트 있어?">프로젝트</button>
+      <button class="chip" data-q="기술 스택이 뭐야?">기술 스택</button>
+      <button class="chip" data-q="연락처 알려줘">연락처</button>
+      <button class="chip" data-q="cloverky가 누구야?">소개</button>
+    </div>
 
-      <!-- 프로젝트 추가: 아래 <div class="record"> 블록을 통째로 복사해서 값만 바꾸면 됩니다. -->
-      <div class="record">
-        <a class="record-link" href="https://arda.cloverky.cloud">
-          <p class="record-host">arda<span class="sub">.cloverky.cloud</span></p>
-          <h2 class="record-name"><svg class="record-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>Arda</h2>
-          <p class="record-desc">지원자 칸반 보드로 채용 전 과정을 관리하고, 단계 이동 시 메일을 자동 발송하는 AI 채용 지원 관리 시스템.</p>
-        </a>
-        <div class="record-foot">
-          <span class="stack">React · FastAPI · PostgreSQL · AWS</span>
-          <span class="record-actions">
-            <a class="open" href="https://arda.cloverky.cloud">열기 <span class="arrow" aria-hidden="true">→</span></a>
-          </span>
-        </div>
-      </div>
-
-      <div class="record">
-        <a class="record-link" href="https://fridge.cloverky.cloud">
-          <p class="record-host">fridge<span class="sub">.cloverky.cloud</span></p>
-          <h2 class="record-name"><svg class="record-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="5" y="2" width="14" height="20" rx="2.5"/><path d="M5 9h14"/><path d="M15.5 5.2v2.2"/><path d="M15.5 11.2v2.6"/></svg>FridgeAI</h2>
-          <p class="record-desc">AI가 재고를 챙기고 취향에 맞는 레시피를 추천하는 냉장고 관리 서비스.</p>
-        </a>
-        <div class="record-foot">
-          <span class="stack">Next.js · Vercel</span>
-          <span class="record-actions">
-            <a class="open" href="https://fridge.cloverky.cloud">열기 <span class="arrow" aria-hidden="true">→</span></a>
-          </span>
-        </div>
-      </div>
-
-      <div class="record">
-        <a class="record-link" href="https://yaksok.cloverky.cloud">
-          <p class="record-host">yaksok<span class="sub">.cloverky.cloud</span></p>
-          <h2 class="record-name"><svg class="record-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m10.5 20.5 10-10a4.95 4.95 0 1 0-7-7l-10 10a4.95 4.95 0 1 0 7 7Z"/><path d="m8.5 8.5 7 7"/></svg>Yaksok</h2>
-          <p class="record-desc">알약을 카메라로 비추면 모양·색·각인을 읽어 식약처 낱알식별 DB와 대조하고, 복약 상담까지 안내합니다.</p>
-        </a>
-        <div class="record-foot">
-          <span class="stack">React · FastAPI · Gemini Vision</span>
-          <span class="record-actions">
-            <a class="open" href="https://yaksok.cloverky.cloud">열기 <span class="arrow" aria-hidden="true">→</span></a>
-          </span>
-        </div>
-      </div>
-
-      <div class="record">
-        <a class="record-link" href="https://yangdongi.cloverky.cloud">
-          <p class="record-host">yangdongi<span class="sub">.cloverky.cloud</span></p>
-          <h2 class="record-name"><svg class="record-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 7h16l-1.4 12.2a2 2 0 0 1-2 1.8H7.4a2 2 0 0 1-2-1.8Z"/><path d="M8.5 7a3.5 3.5 0 0 1 7 0"/></svg>Yangdongi</h2>
-          <p class="record-desc">동양미래대학교 학사 정보를 자연어로 물어보면 공지·시간표·학점을 찾아 정리해주는 학생용 AI 챗봇.</p>
-        </a>
-        <div class="record-foot">
-          <span class="stack">Flask · FastAPI · RAG</span>
-          <span class="record-actions">
-            <a class="open" href="https://yangdongi.cloverky.cloud">열기 <span class="arrow" aria-hidden="true">→</span></a>
-          </span>
-        </div>
-      </div>
-    </section>
+    <form class="input-row" id="form" autocomplete="off">
+      <input class="chat-input" id="input" type="text" placeholder="cloverky에 대해 물어보세요..." aria-label="질문 입력">
+      <button class="send-btn" type="submit" aria-label="전송">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+      </button>
+    </form>
   </main>
 
-  <footer class="foot">
-    <span class="foot-links">
-      <a href="mailto:hisoyeon04@gmail.com">
-        <svg class="foot-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 6 10-6"/></svg>
-        hisoyeon04@gmail.com
-      </a>
-      <a href="https://github.com/cloverky">
-        <svg class="foot-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="18" r="3"/><circle cx="6" cy="6" r="3"/><circle cx="18" cy="6" r="3"/><path d="M18 9v2c0 .6-.4 1-1 1H7c-.6 0-1-.4-1-1V9"/><path d="M12 12v3"/></svg>
-        github.com/cloverky
-      </a>
-    </span>
-    <span>© 2026 cloverky</span>
-  </footer>
+  <nav class="projects" aria-label="프로젝트">
+    <a class="proj" href="https://arda.cloverky.cloud">
+      <div class="proj-icon">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      </div>
+      <span class="proj-name">Arda</span>
+    </a>
+    <a class="proj" href="https://fridge.cloverky.cloud">
+      <div class="proj-icon">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2.5"/><path d="M5 9h14"/><path d="M15.5 5.2v2.2"/><path d="M15.5 11.2v2.6"/></svg>
+      </div>
+      <span class="proj-name">FridgeAI</span>
+    </a>
+    <a class="proj" href="https://yaksok.cloverky.cloud">
+      <div class="proj-icon">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m10.5 20.5 10-10a4.95 4.95 0 1 0-7-7l-10 10a4.95 4.95 0 1 0 7 7Z"/><path d="m8.5 8.5 7 7"/></svg>
+      </div>
+      <span class="proj-name">Yaksok</span>
+    </a>
+    <a class="proj" href="https://yangdongi.cloverky.cloud">
+      <div class="proj-icon">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16l-1.4 12.2a2 2 0 0 1-2 1.8H7.4a2 2 0 0 1-2-1.8Z"/><path d="M8.5 7a3.5 3.5 0 0 1 7 0"/></svg>
+      </div>
+      <span class="proj-name">Yangdongi</span>
+    </a>
+  </nav>
 
 </div>
+<script>
+const PROJECTS = [
+  {
+    name:'Arda',
+    url:'https://arda.cloverky.cloud',
+    desc:'AI 채용 지원 관리 시스템(ATS). 지원자 칸반 보드로 채용 전 과정을 관리하고 단계 이동 시 메일을 자동 발송합니다.',
+    stack:'React · FastAPI · PostgreSQL · AWS'
+  },
+  {
+    name:'FridgeAI',
+    url:'https://fridge.cloverky.cloud',
+    desc:'AI가 재고를 챙기고 취향에 맞는 레시피를 추천하는 냉장고 관리 서비스.',
+    stack:'Next.js · Vercel'
+  },
+  {
+    name:'Yaksok',
+    url:'https://yaksok.cloverky.cloud',
+    desc:'알약을 카메라로 비추면 모양·색·각인을 읽어 식약처 낱알식별 DB와 대조하고 복약 상담까지 안내합니다.',
+    stack:'React · FastAPI · Gemini Vision'
+  },
+  {
+    name:'Yangdongi',
+    url:'https://yangdongi.cloverky.cloud',
+    desc:'동양미래대학교 학사 정보를 자연어로 물어보면 공지·시간표·학점을 찾아 정리해주는 AI 챗봇.',
+    stack:'Flask · FastAPI · RAG'
+  }
+];
+
+const FAQ = [
+  {
+    keys:['누구','소개','who','cloverky가','cloverky는','이 사이트'],
+    answer:'안녕하세요! 저는 **cloverky** — Team.Seuk의 개발자입니다. AI 프로덕트를 만들고 있고, 이 도메인에서 제가 만든 서비스들을 모아서 운영하고 있어요.'
+  },
+  {
+    keys:['프로젝트','만든','서비스','뭐 있','어떤'],
+    answer:`현재 4개의 프로젝트가 있어요:\n\n• **Arda** — AI 채용 지원 관리 시스템\n• **FridgeAI** — AI 냉장고 재고·레시피 관리\n• **Yaksok** — 알약 식별 AI 서비스\n• **Yangdongi** — 동양미래대 학사 정보 AI 챗봇\n\n아래 아이콘을 눌러서 바로 방문할 수 있어요!`
+  },
+  {
+    keys:['arda','채용','ats','지원자','칸반'],
+    answer:`**Arda**는 AI 기반 채용 지원 관리 시스템(ATS)이에요.\n지원자 칸반 보드로 채용 단계를 관리하고, 단계 이동 시 지원자에게 메일을 자동 발송합니다.\n스택: React · FastAPI · PostgreSQL · AWS\n👉 <a href="https://arda.cloverky.cloud" target="_blank">arda.cloverky.cloud</a>`
+  },
+  {
+    keys:['fridge','냉장고','재고','레시피','fridgeai'],
+    answer:`**FridgeAI**는 AI가 냉장고 재고를 챙기고 취향에 맞는 레시피를 추천해주는 서비스예요.\n스택: Next.js · Vercel\n👉 <a href="https://fridge.cloverky.cloud" target="_blank">fridge.cloverky.cloud</a>`
+  },
+  {
+    keys:['yaksok','약속','알약','약','식약처','복약'],
+    answer:`**Yaksok**은 알약을 카메라로 비추면 모양·색·각인을 읽어 식약처 낱알식별 DB와 대조하고 복약 상담까지 안내하는 서비스예요.\n스택: React · FastAPI · Gemini Vision\n👉 <a href="https://yaksok.cloverky.cloud" target="_blank">yaksok.cloverky.cloud</a>`
+  },
+  {
+    keys:['yangdongi','양동이','동양미래','학사','학점','시간표','챗봇'],
+    answer:`**Yangdongi**는 동양미래대학교 학사 정보를 자연어로 물어보면 공지·시간표·학점을 찾아 정리해주는 AI 챗봇이에요.\n스택: Flask · FastAPI · RAG\n👉 <a href="https://yangdongi.cloverky.cloud" target="_blank">yangdongi.cloverky.cloud</a>`
+  },
+  {
+    keys:['스택','기술','언어','기술 스택','tech','framework'],
+    answer:`주로 사용하는 기술 스택이에요:\n\n**Frontend** — React, Next.js, TypeScript\n**Backend** — FastAPI, Flask, Python\n**AI/ML** — Gemini Vision, RAG, QLoRA\n**Infra** — AWS, Vercel, Docker, PostgreSQL`
+  },
+  {
+    keys:['연락','이메일','contact','email','메일'],
+    answer:`📧 <a href="mailto:hisoyeon04@gmail.com">hisoyeon04@gmail.com</a>\n🐙 <a href="https://github.com/cloverky" target="_blank">github.com/cloverky</a>`
+  },
+  {
+    keys:['github','깃허브','코드','레포','오픈소스'],
+    answer:`GitHub에서 소스코드를 확인할 수 있어요!\n🐙 <a href="https://github.com/cloverky" target="_blank">github.com/cloverky</a>`
+  },
+  {
+    keys:['안녕','hi','hello','헬로','반가','처음'],
+    answer:'안녕하세요! 👋 cloverky.cloud에 오신 걸 환영해요. cloverky에 대해 궁금한 거 편하게 물어보세요!'
+  }
+];
+
+function escapeHtml(s){
+  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+function renderMarkdown(text){
+  return text
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+    .replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>')
+    .replace(/\n/g,'<br>')
+    .replace(/&lt;(a href[^&]+)&gt;(.+?)&lt;\/a&gt;/g,'<$1>$2</a>')
+    .replace(/&lt;\/a&gt;/g,'</a>');
+}
+
+function addMsg(text, role){
+  const el = document.createElement('div');
+  el.className = `msg ${role}`;
+  const avatar = document.createElement('div');
+  avatar.className = 'msg-avatar';
+  avatar.textContent = role === 'bot' ? 'C' : 'me';
+  const bubble = document.createElement('div');
+  bubble.className = 'msg-bubble';
+  if(role === 'bot'){
+    bubble.innerHTML = renderMarkdown(text);
+  } else {
+    bubble.textContent = text;
+  }
+  el.appendChild(avatar);
+  el.appendChild(bubble);
+  document.getElementById('messages').appendChild(el);
+  el.scrollIntoView({behavior:'smooth',block:'end'});
+  return el;
+}
+
+function showTyping(){
+  const el = document.createElement('div');
+  el.className = 'msg bot typing';
+  el.innerHTML = '<div class="msg-avatar">C</div><div class="msg-bubble"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>';
+  document.getElementById('messages').appendChild(el);
+  el.scrollIntoView({behavior:'smooth',block:'end'});
+  return el;
+}
+
+function getAnswer(q){
+  const lower = q.toLowerCase();
+  for(const item of FAQ){
+    if(item.keys.some(k => lower.includes(k))){
+      return item.answer;
+    }
+  }
+  return '음… 그 부분은 잘 모르겠어요. 📧 <a href="mailto:hisoyeon04@gmail.com">hisoyeon04@gmail.com</a>으로 직접 물어봐 주세요!';
+}
+
+function send(q){
+  if(!q.trim()) return;
+  document.getElementById('input').value = '';
+  addMsg(q, 'user');
+  const typing = showTyping();
+  setTimeout(()=>{
+    typing.remove();
+    addMsg(getAnswer(q), 'bot');
+  }, 600 + Math.random()*300);
+}
+
+document.getElementById('form').addEventListener('submit', e=>{
+  e.preventDefault();
+  send(document.getElementById('input').value);
+});
+
+document.getElementById('chips').addEventListener('click', e=>{
+  const chip = e.target.closest('.chip');
+  if(chip) send(chip.dataset.q);
+});
+
+// greeting
+setTimeout(()=>{
+  addMsg('안녕하세요! 👋 저는 cloverky입니다. AI 프로덕트를 만들고 있어요. 궁금한 게 있으면 편하게 물어보세요!', 'bot');
+}, 300);
+</script>
 </body>
 </html>
