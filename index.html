@@ -79,9 +79,7 @@ body{
   transition:margin .3s ease, opacity .3s ease;
   user-select:none;
 }
-.center.has-chat .logo{
-  display:none;
-}
+/* logo slides to top-left on first chat — handled via JS inline styles */
 .logo-mark{width:44px;height:44px;color:var(--clover)}
 .logo-text{
   font-family:var(--mono);
@@ -386,9 +384,26 @@ function getAnswer(q){
   return '음… 잘 모르겠어요. 📧 <a href="mailto:hisoyeon04@gmail.com">hisoyeon04@gmail.com</a>으로 직접 물어봐 주세요!';
 }
 
+let logoMoved=false;
+function animateLogo(){
+  if(logoMoved) return;
+  logoMoved=true;
+  const logo=document.getElementById('logo');
+  const r=logo.getBoundingClientRect();
+  // snap to fixed at current position (no transition yet)
+  logo.style.cssText=`position:fixed;top:${r.top}px;left:${r.left}px;width:${r.width}px;margin:0;z-index:50;transform-origin:top left`;
+  requestAnimationFrame(()=>requestAnimationFrame(()=>{
+    logo.style.transition='top .45s cubic-bezier(.4,0,.2,1),left .45s cubic-bezier(.4,0,.2,1),transform .45s cubic-bezier(.4,0,.2,1)';
+    logo.style.top='16px';
+    logo.style.left='20px';
+    logo.style.transform='scale(0.58)';
+  }));
+}
+
 function send(q){
   if(!q.trim()) return;
   document.getElementById('input').value='';
+  animateLogo();
   document.getElementById('center').classList.add('has-chat');
   addMsg(q,'user');
   const t=showTyping();
