@@ -200,7 +200,7 @@ body{
 .center.has-chat .projects{margin-top:24px}
 .proj{
   display:flex;flex-direction:column;align-items:center;gap:8px;
-  text-decoration:none;color:inherit;
+  position:relative;
   width:148px;
 }
 .proj-card{
@@ -231,7 +231,17 @@ body{
 .proj-name{
   font-family:var(--mono);font-size:11px;font-weight:500;
   color:var(--soft);text-align:center;letter-spacing:.01em;
+  text-decoration:none;
 }
+/* 이름 링크가 카드 전체를 덮고, 문서 아이콘만 그 위로 올라온다 (a 안에 a를 못 넣어서) */
+.proj-name::after{content:"";position:absolute;inset:0}
+.proj-card{position:relative;z-index:1;pointer-events:none}
+.proj-docs{
+  pointer-events:auto;
+  position:relative;z-index:1;margin-left:auto;margin-right:-5px;padding:3px 5px;
+  display:flex;color:var(--soft);border-radius:4px;
+}
+.proj-docs:hover{color:var(--clover);background:var(--raised)}
 
 /* per-project colors */
 .thumb-arda  { background:linear-gradient(135deg,#4F6BED 0%,#7B8FFF 100%) }
@@ -278,54 +288,58 @@ body{
   </div>
 
   <nav class="projects" aria-label="프로젝트">
-    <a class="proj" href="https://arda.cloverky.cloud">
+    <div class="proj">
       <div class="proj-card">
         <div class="proj-bar">
           <div class="proj-dot"></div><div class="proj-dot"></div><div class="proj-dot"></div>
           <span class="proj-url">arda.cloverky.cloud</span>
+          <a class="proj-docs" href="https://ats.cloverky.cloud" title="Arda 문서" aria-label="Arda 문서"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3v4a1 1 0 0 0 1 1h4"/><path d="M17 21H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7l5 5v11a2 2 0 0 1-2 2z"/><path d="M9 13h6M9 17h6"/></svg></a>
         </div>
         <div class="proj-thumb thumb-arda">
           <img src="assets/arda.webp" alt="Arda">
         </div>
       </div>
-      <span class="proj-name">Arda</span>
-    </a>
-    <a class="proj" href="https://fridge.cloverky.cloud">
+      <a class="proj-name" href="https://arda.cloverky.cloud">Arda</a>
+    </div>
+    <div class="proj">
       <div class="proj-card">
         <div class="proj-bar">
           <div class="proj-dot"></div><div class="proj-dot"></div><div class="proj-dot"></div>
           <span class="proj-url">fridge.cloverky.cloud</span>
+          <a class="proj-docs" href="https://pantry.cloverky.cloud" title="FridgeAI 문서" aria-label="FridgeAI 문서"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3v4a1 1 0 0 0 1 1h4"/><path d="M17 21H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7l5 5v11a2 2 0 0 1-2 2z"/><path d="M9 13h6M9 17h6"/></svg></a>
         </div>
         <div class="proj-thumb thumb-fridge">
           <img src="assets/fridge.png" alt="FridgeAI">
         </div>
       </div>
-      <span class="proj-name">FridgeAI</span>
-    </a>
-    <a class="proj" href="https://yaksok.cloverky.cloud">
+      <a class="proj-name" href="https://fridge.cloverky.cloud">FridgeAI</a>
+    </div>
+    <div class="proj">
       <div class="proj-card">
         <div class="proj-bar">
           <div class="proj-dot"></div><div class="proj-dot"></div><div class="proj-dot"></div>
           <span class="proj-url">yaksok.cloverky.cloud</span>
+          <a class="proj-docs" href="https://pill.cloverky.cloud" title="Yaksok 문서" aria-label="Yaksok 문서"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3v4a1 1 0 0 0 1 1h4"/><path d="M17 21H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7l5 5v11a2 2 0 0 1-2 2z"/><path d="M9 13h6M9 17h6"/></svg></a>
         </div>
         <div class="proj-thumb thumb-yaksok">
           <img src="assets/yaksok.png" alt="Yaksok">
         </div>
       </div>
-      <span class="proj-name">Yaksok</span>
-    </a>
-    <a class="proj" href="https://yangdongi.cloverky.cloud">
+      <a class="proj-name" href="https://yaksok.cloverky.cloud">Yaksok</a>
+    </div>
+    <div class="proj">
       <div class="proj-card">
         <div class="proj-bar">
           <div class="proj-dot"></div><div class="proj-dot"></div><div class="proj-dot"></div>
           <span class="proj-url">yangdongi.cloverky.cloud</span>
+          <a class="proj-docs" href="https://ask.cloverky.cloud" title="Yangdongi 문서" aria-label="Yangdongi 문서"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3v4a1 1 0 0 0 1 1h4"/><path d="M17 21H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7l5 5v11a2 2 0 0 1-2 2z"/><path d="M9 13h6M9 17h6"/></svg></a>
         </div>
         <div class="proj-thumb thumb-yang">
           <img src="assets/yangdongi.png" alt="Yangdongi">
         </div>
       </div>
-      <span class="proj-name">Yangdongi</span>
-    </a>
+      <a class="proj-name" href="https://yangdongi.cloverky.cloud">Yangdongi</a>
+    </div>
   </nav>
 
 </div>
