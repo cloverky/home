@@ -199,55 +199,50 @@ body{
 }
 .center.has-chat .projects{margin-top:24px}
 .proj{
-  display:flex;flex-direction:column;align-items:center;gap:8px;
+  display:flex;flex-direction:column;align-items:flex-start;
   position:relative;
   width:190px;
 }
 .proj-card{
-  width:190px;height:122px;border-radius:14px;
+  position:relative;z-index:1;pointer-events:none;
+  width:190px;height:127px;border-radius:12px;
   border:1px solid var(--rule);
   box-shadow:var(--shadow);
   overflow:hidden;
-  display:flex;flex-direction:column;
   transition:transform .18s,box-shadow .18s;
   background:var(--raised);
 }
 .proj:hover .proj-card{transform:translateY(-3px);box-shadow:var(--shadow-md)}
-.proj-bar{
-  height:22px;background:var(--paper);border-bottom:1px solid var(--rule);
-  display:flex;align-items:center;padding:0 8px;gap:4px;flex:none;
+.proj-thumb{position:absolute;inset:0}
+.proj-thumb img{width:100%;height:100%;object-fit:cover;object-position:top;display:block}
+/* 밝은 스크린샷 위에서도 읽히도록 반투명 어두운 알약 */
+.proj-badge{
+  position:absolute;top:8px;left:8px;
+  padding:3px 8px;border-radius:999px;
+  font-size:10.5px;font-weight:600;color:#fff;
+  background:rgba(18,22,29,.62);
+  white-space:nowrap;
 }
-.proj-dot{width:5px;height:5px;border-radius:50%;background:var(--rule)}
-.proj-url{
-  font-family:var(--mono);font-size:10px;color:var(--ink);
-  margin-left:4px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;
-}
-.proj-thumb{
-  flex:1;display:flex;align-items:center;justify-content:center;
-  color:rgba(255,255,255,.9);
-}
-.proj-thumb svg{filter:drop-shadow(0 1px 3px rgba(0,0,0,.15))}
-.proj-thumb img{width:100%;height:100%;object-fit:cover;display:block}
 .proj-name{
-  font-family:var(--mono);font-size:11px;font-weight:500;
-  color:var(--soft);text-align:center;letter-spacing:.01em;
+  margin-top:10px;
+  font-size:14px;font-weight:600;color:var(--ink);
   text-decoration:none;
 }
 .proj-desc{
-  margin-top:-5px;font-size:10.5px;color:var(--soft);opacity:.75;
-  text-align:center;line-height:1.35;word-break:keep-all;
+  margin-top:2px;font-size:12px;color:var(--soft);
+  line-height:1.4;word-break:keep-all;
 }
 /* 이름 링크가 카드 전체를 덮고, 문서 아이콘만 그 위로 올라온다 (a 안에 a를 못 넣어서) */
 .proj-name::after{content:"";position:absolute;inset:0}
-.proj-card{position:relative;z-index:1;pointer-events:none}
 .proj-docs{
   pointer-events:auto;
-  position:relative;z-index:1;margin-left:auto;margin-right:-4px;
-  width:18px;height:18px;flex:none;border-radius:50%;
+  position:absolute;top:6px;right:6px;
+  width:26px;height:26px;border-radius:50%;
   display:flex;align-items:center;justify-content:center;
-  color:var(--clover);background:color-mix(in srgb,var(--clover) 15%,transparent);
+  color:var(--clover);background:rgba(255,255,255,.92);
+  box-shadow:0 1px 3px rgba(0,0,0,.15);
 }
-.proj-docs:hover{background:color-mix(in srgb,var(--clover) 28%,transparent)}
+.proj-docs:hover{background:#fff}
 
 /* per-project colors */
 .thumb-arda  { background:linear-gradient(135deg,#4F6BED 0%,#7B8FFF 100%) }
@@ -262,8 +257,8 @@ body{
   .center{padding:0 16px}
   .logo-text{font-size:1.5rem}
   .projects{gap:8px;overflow-x:auto;justify-content:flex-start;padding-bottom:48px}
-  .proj{width:120px;flex:none}
-  .proj-card{width:120px;height:80px}
+  .proj{width:150px;flex:none}
+  .proj-card{width:150px;height:100px}
 }
 </style>
 </head>
@@ -296,59 +291,47 @@ body{
   <nav class="projects" aria-label="프로젝트">
     <div class="proj">
       <div class="proj-card">
-        <div class="proj-bar">
-          <div class="proj-dot"></div><div class="proj-dot"></div><div class="proj-dot"></div>
-          <span class="proj-url">arda.cloverky.cloud</span>
-          <a class="proj-docs" href="https://ats.cloverky.cloud" target="_blank" rel="noopener" title="Arda 문서" aria-label="Arda 문서"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3v4a1 1 0 0 0 1 1h4"/><path d="M17 21H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7l5 5v11a2 2 0 0 1-2 2z"/><path d="M9 13h6M9 17h6"/></svg></a>
-        </div>
         <div class="proj-thumb thumb-arda">
           <img src="assets/arda.webp" alt="Arda">
         </div>
+        <span class="proj-badge">원티드 AI 출품</span>
+        <a class="proj-docs" href="https://ats.cloverky.cloud" target="_blank" rel="noopener" title="Arda 문서" aria-label="Arda 문서"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3v4a1 1 0 0 0 1 1h4"/><path d="M17 21H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7l5 5v11a2 2 0 0 1-2 2z"/><path d="M9 13h6M9 17h6"/></svg></a>
       </div>
       <a class="proj-name" href="https://arda.cloverky.cloud" target="_blank" rel="noopener">Arda</a>
-      <span class="proj-desc">원티드 AI Championship 2026 출품</span>
+      <span class="proj-desc">AI 채용 관리 · 팀 SEUK</span>
     </div>
     <div class="proj">
       <div class="proj-card">
-        <div class="proj-bar">
-          <div class="proj-dot"></div><div class="proj-dot"></div><div class="proj-dot"></div>
-          <span class="proj-url">fridge.cloverky.cloud</span>
-          <a class="proj-docs" href="https://pantry.cloverky.cloud" target="_blank" rel="noopener" title="FridgeAI 문서" aria-label="FridgeAI 문서"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3v4a1 1 0 0 0 1 1h4"/><path d="M17 21H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7l5 5v11a2 2 0 0 1-2 2z"/><path d="M9 13h6M9 17h6"/></svg></a>
-        </div>
         <div class="proj-thumb thumb-fridge">
           <img src="assets/fridge.png" alt="FridgeAI">
         </div>
+        <span class="proj-badge">KDT 개인작품</span>
+        <a class="proj-docs" href="https://pantry.cloverky.cloud" target="_blank" rel="noopener" title="FridgeAI 문서" aria-label="FridgeAI 문서"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3v4a1 1 0 0 0 1 1h4"/><path d="M17 21H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7l5 5v11a2 2 0 0 1-2 2z"/><path d="M9 13h6M9 17h6"/></svg></a>
       </div>
       <a class="proj-name" href="https://fridge.cloverky.cloud" target="_blank" rel="noopener">FridgeAI</a>
-      <span class="proj-desc">KDT 레드햇 과정 개인작품</span>
+      <span class="proj-desc">AI 냉장고 관리 · 레드햇 과정</span>
     </div>
     <div class="proj">
       <div class="proj-card">
-        <div class="proj-bar">
-          <div class="proj-dot"></div><div class="proj-dot"></div><div class="proj-dot"></div>
-          <span class="proj-url">yaksok.cloverky.cloud</span>
-          <a class="proj-docs" href="https://pill.cloverky.cloud" target="_blank" rel="noopener" title="Yaksok 문서" aria-label="Yaksok 문서"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3v4a1 1 0 0 0 1 1h4"/><path d="M17 21H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7l5 5v11a2 2 0 0 1-2 2z"/><path d="M9 13h6M9 17h6"/></svg></a>
-        </div>
         <div class="proj-thumb thumb-yaksok">
           <img src="assets/yaksok.png" alt="Yaksok">
         </div>
+        <span class="proj-badge">문체부 공모전 출품</span>
+        <a class="proj-docs" href="https://pill.cloverky.cloud" target="_blank" rel="noopener" title="Yaksok 문서" aria-label="Yaksok 문서"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3v4a1 1 0 0 0 1 1h4"/><path d="M17 21H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7l5 5v11a2 2 0 0 1-2 2z"/><path d="M9 13h6M9 17h6"/></svg></a>
       </div>
       <a class="proj-name" href="https://yaksok.cloverky.cloud" target="_blank" rel="noopener">Yaksok</a>
-      <span class="proj-desc">문체부 AI·데이터 활용 공모전 출품</span>
+      <span class="proj-desc">알약 인식 · 복약 상담</span>
     </div>
     <div class="proj">
       <div class="proj-card">
-        <div class="proj-bar">
-          <div class="proj-dot"></div><div class="proj-dot"></div><div class="proj-dot"></div>
-          <span class="proj-url">yangdongi.cloverky.cloud</span>
-          <a class="proj-docs" href="https://ask.cloverky.cloud" target="_blank" rel="noopener" title="Yangdongi 문서" aria-label="Yangdongi 문서"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3v4a1 1 0 0 0 1 1h4"/><path d="M17 21H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7l5 5v11a2 2 0 0 1-2 2z"/><path d="M9 13h6M9 17h6"/></svg></a>
-        </div>
         <div class="proj-thumb thumb-yang">
           <img src="assets/yangdongi.png" alt="Yangdongi">
         </div>
+        <span class="proj-badge">졸업작품</span>
+        <a class="proj-docs" href="https://ask.cloverky.cloud" target="_blank" rel="noopener" title="Yangdongi 문서" aria-label="Yangdongi 문서"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3v4a1 1 0 0 0 1 1h4"/><path d="M17 21H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7l5 5v11a2 2 0 0 1-2 2z"/><path d="M9 13h6M9 17h6"/></svg></a>
       </div>
       <a class="proj-name" href="https://yangdongi.cloverky.cloud" target="_blank" rel="noopener">Yangdongi</a>
-      <span class="proj-desc">동양미래대 졸업작품</span>
+      <span class="proj-desc">동양미래대 학사 챗봇</span>
     </div>
   </nav>
 
