@@ -339,7 +339,10 @@ body{
 
 <script>
 const FAQ=[
-  {keys:['누구','소개','who','cloverky가','cloverky는','이 사이트'],answer:'안녕하세요! 저는 개발자 **cloverky**입니다 🍀\nAI 프로덕트를 만들고 있고, 이 도메인에서 제가 만든 서비스들을 운영하고 있어요 :)'},
+  {keys:['누구','소개','who','cloverky가','cloverky는','이 사이트','뭐하는','뭐 하는','어떤 사람','무슨 사람','사람이야','개발자','본인','넌 뭐','너는 뭐'],answer:'안녕하세요! 저는 웹 개발자 **cloverky**입니다 🍀\n사용자가 멈춤 없이 쓸 수 있는 웹 서비스를 만들고, AI 에이전트도 직접 만들어요.\n이 도메인에서 제가 만든 서비스들을 운영하고 있어요 :)'},
+  {keys:['경력','이력','경험','인턴','교육','아카데미','academy','활동'],answer:'이런 경험을 했어요:\n\n• **[IBM x RedHat] AI Transformation AX Academy 7기** (2026) — AI 에이전트·RAG 실습, 팀 프로젝트 Arda에서 AI 에이전트 담당\n• **다누시스 현장실습** (2025) — Vision AI 모델 학습, 데이터 전처리 자동화\n\n프로젝트가 궁금하면 "프로젝트"라고 물어봐 주세요!'},
+  {keys:['공모전','대회','수상','출품','해커톤','championship'],answer:'이런 대회에 작품을 냈어요:\n\n• 원티드 AI Championship 2026 — Arda\n• 2026 공공기관 AI 혁신 챌린지\n• 2026 충청북도 공공데이터·AI 활용 창업경진대회\n• 2026 문화체육관광 디지털혁신 공모전'},
+  {keys:['강점','장점','잘하','특기'],answer:'서비스가 느려지거나 실패하는 지점을 찾아 구조로 고치는 걸 잘해요.\nArda에서는 AI 면접이 음성 변환을 기다리느라 멈추던 걸 비동기 대기열로 바꿔, 동시 면접 처리 시간을 절반으로 줄였어요.'},
   {keys:['프로젝트','만든','서비스','뭐 있','어떤'],answer:'현재 4개의 프로젝트가 있어요:\n\n• **Arda** — AI 채용 지원 관리 시스템\n• **FridgeAI** — AI 냉장고 재고·레시피 관리\n• **Yaksok** — 알약 식별 AI 서비스\n• **Yangdongi** — 동양미래대 학사 정보 AI 챗봇\n\n아래 아이콘을 눌러 바로 방문해보세요!'},
   {keys:['arda','아르다','채용','ats','지원자','칸반'],answer:'**Arda**는 AI 기반 채용 지원 관리 시스템(ATS)이에요.\n지원자 칸반 보드로 채용 단계를 관리하고, 단계 이동 시 지원자에게 메일을 자동 발송합니다.\n스택: React · FastAPI · PostgreSQL · AWS\n👉 <a href="https://arda.cloverky.cloud" target="_blank">arda.cloverky.cloud</a>'},
   {keys:['fridge','냉장고','재고','레시피','fridgeai'],answer:'**FridgeAI**는 AI가 냉장고 재고를 챙기고 취향에 맞는 레시피를 추천해주는 서비스예요.\n스택: Next.js · Vercel\n👉 <a href="https://fridge.cloverky.cloud" target="_blank">fridge.cloverky.cloud</a>'},
@@ -389,7 +392,7 @@ function getAnswer(q){
   for(const item of FAQ){
     if(item.keys.some(k=>l.includes(k))) return item.answer;
   }
-  return '음… 잘 모르겠어요. 📧 <a href="mailto:hisoyeon04@gmail.com">hisoyeon04@gmail.com</a>으로 직접 물어봐 주세요!';
+  return '음… 그건 아직 대답하기 어려워요.\n**소개 · 프로젝트 · 기술 스택 · 경력 · 강점 · 연락처** 중에서 물어봐 주세요!\n더 궁금한 건 📧 <a href="mailto:hisoyeon04@gmail.com">hisoyeon04@gmail.com</a>으로 보내 주세요.';
 }
 
 let logoMoved=false;
