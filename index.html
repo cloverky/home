@@ -349,7 +349,7 @@ const FAQ=[
   {keys:['yaksok','약속','알약','약','식약처','복약'],answer:'**Yaksok**은 알약을 카메라로 비추면 모양·색·각인을 읽어 식약처 낱알식별 DB와 대조하고 복약 상담까지 안내하는 서비스예요.\n스택: React · FastAPI · Gemini Vision\n👉 <a href="https://yaksok.cloverky.cloud" target="_blank">yaksok.cloverky.cloud</a>'},
   {keys:['yangdongi','양동이','동양미래','학사','학점','시간표','챗봇'],answer:'**Yangdongi**는 동양미래대학교 학생을 위한 학사 챗봇이에요. 내 시간표·학점, 캠퍼스 건물 위치와 가는 길, 공지를 물어보면 바로 알려줘요.\n스택: Next.js · Prisma · PostgreSQL\n👉 <a href="https://yangdongi.cloverky.cloud" target="_blank">yangdongi.cloverky.cloud</a>'},
   {keys:['스택','기술','언어','tech','framework'],answer:'주로 사용하는 기술 스택이에요:\n\n**Frontend** — React, Next.js, TypeScript\n**Backend** — FastAPI, Flask, Python\n**AI/ML** — Gemini Vision, RAG, QLoRA\n**Infra** — AWS, Vercel, Docker, PostgreSQL'},
-  {keys:['연락','이메일','contact','email','메일'],answer:'📧 <a href="mailto:hisoyeon04@gmail.com">hisoyeon04@gmail.com</a>\n🐙 <a href="https://github.com/cloverky" target="_blank">github.com/cloverky</a>'},
+  {keys:['연락','이메일','contact','email','메일'],answer:'📧 <a href="mailto:Soyeon040403@gmail.com">Soyeon040403@gmail.com</a>\n🐙 <a href="https://github.com/cloverky" target="_blank">github.com/cloverky</a>'},
   {keys:['github','깃허브','코드','레포'],answer:'🐙 <a href="https://github.com/cloverky" target="_blank">github.com/cloverky</a>'},
   {keys:['안녕','하이','hi','hello','헬로','반가','ㅎㅇ'],answer:'안녕하세요! 👋 cloverky.cloud에 오신 걸 환영해요. 궁금한 거 편하게 물어보세요!'}
 ];
@@ -392,7 +392,7 @@ function getAnswer(q){
   for(const item of FAQ){
     if(item.keys.some(k=>l.includes(k))) return item.answer;
   }
-  return '음… 그건 아직 대답하기 어려워요.\n**소개 · 프로젝트 · 기술 스택 · 경력 · 강점 · 연락처** 중에서 물어봐 주세요!\n더 궁금한 건 📧 <a href="mailto:hisoyeon04@gmail.com">hisoyeon04@gmail.com</a>으로 보내 주세요.';
+  return '음… 그건 아직 대답하기 어려워요.\n**소개 · 프로젝트 · 기술 스택 · 경력 · 강점 · 연락처** 중에서 물어봐 주세요!\n더 궁금한 건 📧 <a href="mailto:Soyeon040403@gmail.com">Soyeon040403@gmail.com</a>으로 보내 주세요.';
 }
 
 let logoMoved=false;
