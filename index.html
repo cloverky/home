@@ -347,6 +347,7 @@ const FAQ=[
   {keys:['yangdongi','양동이','동양미래','학사','학점','시간표','챗봇'],answer:'**Yangdongi**는 동양미래대학교 학생을 위한 학사 챗봇이에요. 내 시간표·학점, 캠퍼스 건물 위치와 가는 길, 공지를 물어보면 바로 알려줘요.\n스택: Next.js · Prisma · PostgreSQL\n👉 <a href="https://yangdongi.cloverky.cloud" target="_blank">yangdongi.cloverky.cloud</a>'},
   {keys:['학교','학력','전공','학과','졸업','무슨 대학','어느 대학','대학 어디','나이','몇 살','몇살','생년','년생','출생'],answer:'**2004년생**이고, **동양미래대학교 AI소프트웨어공학부**를 졸업했어요 (2023.03 ~ 2026.02).\n졸업작품으로 학교 학사 챗봇 **Yangdongi**를 만들었어요.'},
   {keys:['누구','소개','who','cloverky가','cloverky는','이 사이트','뭐하는','뭐 하는','어떤 사람','무슨 사람','사람이야','개발자','본인','넌 뭐','너는 뭐'],answer:'안녕하세요! 저는 웹 개발자 **cloverky**입니다 🍀\n사용자가 멈춤 없이 쓸 수 있는 웹 서비스를 만들고, AI 에이전트도 직접 만들어요.\n이 도메인에서 제가 만든 서비스들을 운영하고 있어요 :)'},
+  {keys:['할 수 있','할 줄','무슨 일','뭘 해','뭐 해','직무','포지션','역할','가능한','맡을'],answer:'이런 일을 할 수 있어요:\n\n• **웹 백엔드** — FastAPI·Flask로 API를 만들고, MySQL·PostgreSQL DB 설계와 회원가입·로그인 인증을 구현해요\n• **AI 서비스** — LLM 에이전트, RAG 검색, 음성 인식·영상 분석 모델을 실제 서비스에 연결해요\n• **배포·운영** — Docker, AWS, Vercel로 직접 배포하고 운영해요'},
   {keys:['경력','이력','경험','인턴','교육','아카데미','academy','활동'],answer:'이런 경험을 했어요:\n\n• **[IBM x RedHat] AI Transformation AX Academy 7기** (2026) — AI 에이전트·RAG 실습, 팀 프로젝트 Arda에서 AI 에이전트 담당\n• **다누시스 현장실습** (2025) — Vision AI 모델 학습, 데이터 전처리 자동화\n\n프로젝트가 궁금하면 "프로젝트"라고 물어봐 주세요!'},
   {keys:['공모전','대회','수상','출품','해커톤','championship'],answer:'이런 대회에 작품을 냈어요:\n\n• 원티드 AI Championship 2026 — Arda\n• 2026 공공기관 AI 혁신 챌린지\n• 2026 충청북도 공공데이터·AI 활용 창업경진대회\n• 2026 문화체육관광 디지털혁신 공모전'},
   {keys:['강점','장점','잘하','특기'],answer:'서비스가 느려지거나 실패하는 지점을 찾아 구조로 고치는 걸 잘해요.\nArda에서는 AI 면접이 음성 변환을 기다리느라 멈추던 걸 비동기 대기열로 바꿔, 동시 면접 처리 시간을 절반으로 줄였어요.'},
@@ -391,11 +392,12 @@ function showTyping(){
 }
 
 function getAnswer(q){
-  const l=q.toLowerCase();
+  // 띄어쓰기 없이 물어도("무슨일할수있어") 걸리도록 공백을 지우고 비교
+  const l=q.toLowerCase().replace(/\s/g,'');
   for(const item of FAQ){
-    if(item.keys.some(k=>l.includes(k))) return item.answer;
+    if(item.keys.some(k=>l.includes(k.replace(/\s/g,'')))) return item.answer;
   }
-  return '음… 그건 아직 대답하기 어려워요.\n**소개 · 학력 · 프로젝트 · 기술 스택 · 경력 · 강점 · 연락처** 중에서 물어봐 주세요!\n더 궁금한 건 📧 <a href="mailto:Soyeon040403@gmail.com">Soyeon040403@gmail.com</a>으로 보내 주세요.';
+  return '음… 그건 아직 대답하기 어려워요.\n**소개 · 할 수 있는 일 · 학력 · 프로젝트 · 기술 스택 · 경력 · 강점 · 연락처** 중에서 물어봐 주세요!\n더 궁금한 건 📧 <a href="mailto:Soyeon040403@gmail.com">Soyeon040403@gmail.com</a>으로 보내 주세요.';
 }
 
 let logoMoved=false;
