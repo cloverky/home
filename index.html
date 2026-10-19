@@ -292,8 +292,8 @@ body{
 .intro-stem{position:absolute;z-index:1;width:1px;height:1px;overflow:visible}
 .intro-leaf{position:absolute;z-index:2;overflow:hidden;border:3px solid #226647;background:#fff;box-shadow:0 10px 30px rgba(18,22,29,.15)}
 .intro-leaf img{width:100%;height:100%;object-fit:cover;object-position:top;display:block}
-/* FridgeAI 스크린샷은 글씨가 왼쪽에 있어서 왼쪽을 붙여 보여 준다 */
-.intro-leaf[data-name="FridgeAI"] img{object-position:left top}
+/* FridgeAI 스크린샷은 글씨가 왼쪽에 있어서 네모난 잎에선 살짝 왼쪽을 보여 준다 */
+.intro-leaf[data-name="FridgeAI"] img{object-position:25% top}
 /* 첫 화면 아래 버튼 두 개 */
 .intro-cta{position:absolute;left:0;right:0;bottom:5vh;z-index:4;display:flex;justify-content:center;gap:12px;padding:0 16px}
 .intro-cta button{padding:13px 24px;border:0;border-radius:999px;cursor:pointer;font:700 15px var(--sans);color:#fff;background:#226647;box-shadow:0 8px 22px rgba(34,102,71,.3);transition:transform .15s,box-shadow .15s}
@@ -350,7 +350,7 @@ body{
     <div class="proj">
       <div class="proj-card">
         <div class="proj-thumb thumb-fridge">
-          <img src="assets/fridge.png" alt="FridgeAI">
+          <img src="assets/fridge.webp" alt="FridgeAI">
         </div>
         <span class="proj-badge">KDT 개인작품</span>
         <a class="proj-docs" href="https://pantry.cloverky.cloud" target="_blank" rel="noopener" title="FridgeAI 문서" aria-label="FridgeAI 문서"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3v4a1 1 0 0 0 1 1h4"/><path d="M17 21H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7l5 5v11a2 2 0 0 1-2 2z"/><path d="M9 13h6M9 17h6"/></svg></a>

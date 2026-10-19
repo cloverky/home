@@ -73,9 +73,11 @@ p{margin:0 0 14px;word-break:keep-all}
 .proj .my{margin:10px 0 0;font-size:13px;color:var(--soft)}
 .tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
 .tags span{padding:3px 9px;border-radius:7px;background:var(--tint);font:12px var(--mono);color:var(--ink)}
-.proj .go{display:flex;gap:12px;margin-top:12px;font-size:13.5px}
-.proj .go a{color:var(--clover);text-decoration:none}
-.proj .go a:hover{text-decoration:underline}
+/* 사이트·문서 링크는 버튼으로: 사이트가 주 버튼 */
+.proj .go{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap}
+.proj .go a{padding:8px 14px;border-radius:999px;border:1px solid var(--clover);font-size:13.5px;font-weight:600;text-decoration:none;color:var(--clover);transition:background .15s,color .15s}
+.proj .go a:first-child{background:var(--clover);color:#fff}
+.proj .go a:hover{background:var(--clover);color:#fff}
 
 /* 문제 해결 */
 .case{padding:22px;border:1px solid var(--rule);border-radius:14px;background:var(--raised);box-shadow:var(--shadow);margin-bottom:12px}
@@ -147,17 +149,17 @@ footer a{color:var(--clover);text-decoration:none}
 
   <section class="lead">
     <p class="label">WHY DEVELOPER</p>
-    <p>새 기술도 기초부터 직접 확인하면서 익혀 왔어요. 전공동아리 AILab에서 파이썬 기초를 다지고, 2년 동안 데이터 분석·AI 모델링을 하고 Flask·Streamlit으로 서비스를 배포했어요.</p>
-    <p>여러 프로젝트를 하면서 제일 오래 붙잡고 있던 문제는 <b>사용자가 기다리거나 요청이 실패하는 순간</b>이었어요. 그래서 AI 모델을 사용자가 멈춤 없이 쓸 수 있는 서비스로 연결하는 AI 에이전트 백엔드 개발자를 목표로 하고 있어요.</p>
-    <p>AI 기능을 만드는 데서 끝내지 않고, 직접 배포해서 운영하고, 느려지면 재서 고쳐요.</p>
+    <p>새 기술도 기초부터 직접 확인하면서 익혀 왔습니다. 전공동아리 AILab에서 파이썬 기초를 다지고, 2년 동안 데이터 분석·AI 모델링을 하고 Flask·Streamlit으로 서비스를 배포했습니다.</p>
+    <p>여러 프로젝트를 하면서 제일 오래 붙잡고 있던 문제는 <b>사용자가 기다리거나 요청이 실패하는 순간</b>이었습니다. 그래서 AI 모델을 사용자가 멈춤 없이 쓸 수 있는 서비스로 연결하는 AI 에이전트 백엔드 개발자를 목표로 하고 있습니다.</p>
+    <p>AI 기능을 만드는 데서 끝내지 않고, 직접 배포해서 운영하고, 느려지면 측정해서 고칩니다.</p>
   </section>
 
   <section>
     <p class="label">STRENGTHS</p>
     <div class="grid3">
-      <div class="card"><h3>짐작 말고 측정</h3><p>문제가 생기면 고치기 전에 로그와 지표부터 봐요. 표정 분석 모델이 안 오르던 원인도, 학습이 느리던 원인도 재 보니 모델이 아니라 데이터와 실행 환경이었어요.</p></div>
-      <div class="card"><h3>모델과 서버를 같이 봐요</h3><p>AI 모델 성능만큼 서버 구조도 중요해요. LLM 추론 때문에 로그인까지 멈추던 서버를 역할별로 나눠, 답을 만드는 동안에도 다른 기능이 바로 돌게 했어요.</p></div>
-      <div class="card"><h3>직접 배포하고 운영해요</h3><p>Docker(Ubuntu·AWS) 환경을 만들고 Cloudflare·Vercel 배포를 자동화했어요. 지금도 서비스 4개를 직접 띄워 두고 운영하고 있어요.</p></div>
+      <div class="card"><h3>짐작 말고 측정</h3><p>문제가 생기면 고치기 전에 로그와 지표부터 확인합니다. 표정 분석 모델이 안 오르던 원인도, 학습이 느리던 원인도 측정해 보니 모델이 아니라 데이터와 실행 환경이었습니다.</p></div>
+      <div class="card"><h3>모델과 서버를 같이 봅니다</h3><p>AI 모델 성능만큼 서버 구조도 중요합니다. LLM 추론 때문에 로그인까지 멈추던 서버를 역할별로 나눠, 답을 만드는 동안에도 다른 기능이 바로 처리되게 했습니다.</p></div>
+      <div class="card"><h3>직접 배포하고 운영합니다</h3><p>Docker(Ubuntu·AWS) 환경을 만들고 Cloudflare·Vercel 배포를 자동화했습니다. 지금도 서비스 4개를 직접 띄워 두고 운영하고 있습니다.</p></div>
     </div>
   </section>
 
@@ -169,7 +171,7 @@ footer a{color:var(--clover);text-decoration:none}
       <div>
         <h3>Arda — AI 채용 플랫폼 <span class="badge">🏆 원티드 AI 대회 인기상</span></h3>
         <p class="meta">4인 팀 SEUK · AI 에이전트 개발 · 2026.08 – 2026.10</p>
-        <p>지원자의 이력서와 자기소개서를 읽고 면접 질문을 만들고, 실시간 AI 면접에서 지원자 발언을 서류 내용과 대조해요.</p>
+        <p>지원자의 이력서와 자기소개서를 읽고 면접 질문을 만들고, 실시간 AI 면접에서 지원자 발언을 서류 내용과 대조합니다.</p>
         <ul>
           <li>이력서 항목 뽑기, 자기소개서 기반 꼬리 질문, 서류-면접 발언 대조 기능 구현</li>
           <li>LLM 응답을 JSON Schema로 고정해서 다음 단계에서 안정적으로 쓰게 함</li>
@@ -177,23 +179,23 @@ footer a{color:var(--clover);text-decoration:none}
           <li>STT 비동기 대기열로 동시 면접 4명 처리 시간 50% 단축, 라벨 정제로 표정 정확도 74.9% → 86.2%</li>
         </ul>
         <div class="tags"><span>FastAPI</span><span>Python</span><span>LLM · JSON Schema</span><span>Whisper</span><span>ViT</span><span>Docker</span><span>AWS</span></div>
-        <div class="go"><a href="https://arda.cloverky.cloud" target="_blank" rel="noopener">사이트 ↗</a><a href="https://ats.cloverky.cloud" target="_blank" rel="noopener">문서 ↗</a></div>
+        <div class="go"><a href="https://arda.cloverky.cloud" target="_blank" rel="noopener">사이트 바로가기 ↗</a><a href="https://ats.cloverky.cloud" target="_blank" rel="noopener">문서 ↗</a></div>
       </div>
     </article>
 
     <article class="proj">
-      <img src="/assets/fridge.png" alt="FridgeAI 화면" style="object-position:left top">
+      <img src="/assets/fridge.webp" alt="FridgeAI 화면" style="object-position:25% top">
       <div>
         <h3>FridgeAI — AI 냉장고 관리 <span class="badge">KDT 개인작품</span></h3>
         <p class="meta">1인 개발 · 레드햇 과정</p>
-        <p>냉장고 재료를 관리하고, 남은 재료로 만들 수 있는 레시피를 AI가 추천해 줘요.</p>
+        <p>냉장고 재료를 관리하고, 남은 재료로 만들 수 있는 레시피를 AI가 추천해 줍니다.</p>
         <ul>
           <li>기획부터 프론트·백엔드·배포까지 혼자 전부</li>
           <li>내 PC GPU(8GB)에 EXAONE 7.8B를 vLLM으로 올리고 Cloudflare 터널로 LLM 서버 직접 운영</li>
           <li>여러 프로젝트 API를 FastAPI 서버 하나로 묶어 운영, 구글 소셜 로그인 구현</li>
         </ul>
         <div class="tags"><span>Next.js</span><span>FastAPI</span><span>vLLM</span><span>EXAONE</span><span>Docker</span><span>Cloudflare</span></div>
-        <div class="go"><a href="https://fridge.cloverky.cloud" target="_blank" rel="noopener">사이트 ↗</a><a href="https://pantry.cloverky.cloud" target="_blank" rel="noopener">문서 ↗</a></div>
+        <div class="go"><a href="https://fridge.cloverky.cloud" target="_blank" rel="noopener">사이트 바로가기 ↗</a><a href="https://pantry.cloverky.cloud" target="_blank" rel="noopener">문서 ↗</a></div>
       </div>
     </article>
 
@@ -202,13 +204,13 @@ footer a{color:var(--clover);text-decoration:none}
       <div>
         <h3>Yaksok — 알약 인식 · 복약 상담 <span class="badge">문체부 공모전 출품</span></h3>
         <p class="meta">4인 팀 SEUK</p>
-        <p>알약을 카메라로 비추면 모양·색·각인을 읽어 식약처 DB와 맞춰 보고, 복약 상담까지 이어 줘요.</p>
+        <p>알약을 카메라로 비추면 모양·색·각인을 읽어 식약처 DB와 맞춰 보고, 복약 상담까지 이어 줍니다.</p>
         <ul>
           <li>공공데이터 API로 알약 2만 7천여 건을 모아 DB에 넣고, 인식 결과와 맞춰 보는 기능 구현</li>
           <li>복약 상담 화면을 상담 API와 연결하고 사용자 건강정보를 같이 넘기도록 구현</li>
         </ul>
         <div class="tags"><span>React</span><span>FastAPI</span><span>Gemini Vision</span><span>PostgreSQL</span><span>Docker</span></div>
-        <div class="go"><a href="https://yaksok.cloverky.cloud" target="_blank" rel="noopener">사이트 ↗</a><a href="https://pill.cloverky.cloud" target="_blank" rel="noopener">문서 ↗</a></div>
+        <div class="go"><a href="https://yaksok.cloverky.cloud" target="_blank" rel="noopener">사이트 바로가기 ↗</a><a href="https://pill.cloverky.cloud" target="_blank" rel="noopener">문서 ↗</a></div>
       </div>
     </article>
 
@@ -217,14 +219,14 @@ footer a{color:var(--clover);text-decoration:none}
       <div>
         <h3>양동이(Yangdongi) — 학사 정보 AI 챗봇 <span class="badge">졸업작품</span></h3>
         <p class="meta">6인 팀 · 백엔드, AI 서빙 구조 설계 · 2025.03 – 2025.10</p>
-        <p>학점, 시간표, 공지를 대화로 물어보면 바로 답해 주는 RAG 기반 학사 챗봇이에요.</p>
+        <p>학점, 시간표, 공지를 대화로 물어보면 바로 답해 주는 RAG 기반 학사 챗봇입니다.</p>
         <ul>
           <li>Flask 서버 하나가 LLM 추론까지 하느라 로그인까지 멈추던 문제를 확인</li>
           <li>Flask는 인증·학사 데이터·채팅 로그, FastAPI는 벡터 검색·LLM 추론만 맡도록 분리</li>
           <li>학점·시간표는 MySQL, 크롤링한 공지는 MongoDB, 임베딩은 ChromaDB로 저장소도 분리</li>
         </ul>
         <div class="tags"><span>Flask</span><span>FastAPI</span><span>LangChain</span><span>MySQL</span><span>MongoDB</span><span>ChromaDB</span></div>
-        <div class="go"><a href="https://yangdongi.cloverky.cloud" target="_blank" rel="noopener">사이트 ↗</a><a href="https://ask.cloverky.cloud" target="_blank" rel="noopener">문서 ↗</a></div>
+        <div class="go"><a href="https://yangdongi.cloverky.cloud" target="_blank" rel="noopener">사이트 바로가기 ↗</a><a href="https://ask.cloverky.cloud" target="_blank" rel="noopener">문서 ↗</a></div>
       </div>
     </article>
   </section>
@@ -236,9 +238,9 @@ footer a{color:var(--clover);text-decoration:none}
       <p class="where">Arda · 백엔드</p>
       <h3>동시 면접자가 늘수록 면접이 느려지던 문제</h3>
       <dl>
-        <dt>문제</dt><dd>동시 면접자가 늘수록 다음 질문이 나오기까지 시간이 점점 길어졌어요.</dd>
-        <dt>원인</dt><dd>처리 흐름을 단계별로 재 보니, 다음 질문이 이전 답변의 STT 변환이 끝나기를 기다리느라 멈춰 있었어요.</dd>
-        <dt>해결</dt><dd>면접은 STT를 기다리지 않고 계속 진행하고, STT 변환은 async 비동기 대기열에서 순서대로 처리하게 바꿨어요.</dd>
+        <dt>문제</dt><dd>동시 면접자가 늘수록 다음 질문이 나오기까지 시간이 점점 길어졌습니다.</dd>
+        <dt>원인</dt><dd>처리 흐름을 단계별로 측정해 보니, 다음 질문이 이전 답변의 STT 변환이 끝나기를 기다리느라 멈춰 있었습니다.</dd>
+        <dt>해결</dt><dd>면접은 STT를 기다리지 않고 계속 진행하고, STT 변환은 async 비동기 대기열에서 순서대로 처리하게 바꿨습니다.</dd>
         <dt>결과</dt><dd class="res">동시 면접 4명 기준 처리 시간 50% 단축</dd>
       </dl>
     </div>
@@ -247,9 +249,9 @@ footer a{color:var(--clover);text-decoration:none}
       <p class="where">Arda · AI 모델</p>
       <h3>아무리 학습해도 오르지 않던 표정 분석 정확도</h3>
       <dl>
-        <dt>문제</dt><dd>표정 분류 ViT 모델의 정확도가 좀처럼 오르지 않았어요.</dd>
-        <dt>원인</dt><dd>모델을 바꾸기 전에 표정별 결과를 확인해 보니 '역겨움' 정밀도가 5.9%였고, 원인은 모델이 아니라 부정확한 데이터 라벨이었어요.</dd>
-        <dt>해결</dt><dd>라벨을 교체하고 학습 설정을 바로잡았어요.</dd>
+        <dt>문제</dt><dd>표정 분류 ViT 모델의 정확도가 좀처럼 오르지 않았습니다.</dd>
+        <dt>원인</dt><dd>모델을 바꾸기 전에 표정별 결과를 확인해 보니 '역겨움' 정밀도가 5.9%였고, 원인은 모델이 아니라 부정확한 데이터 라벨이었습니다.</dd>
+        <dt>해결</dt><dd>라벨을 교체하고 학습 설정을 바로잡았습니다.</dd>
         <dt>결과</dt><dd class="res">전체 정확도 74.9% → 86.2%, 역겨움 정밀도 5.9% → 64.2%</dd>
       </dl>
     </div>
@@ -258,9 +260,9 @@ footer a{color:var(--clover);text-decoration:none}
       <p class="where">양동이 · 서버 구조</p>
       <h3>LLM이 답하는 동안 로그인까지 멈추던 서버</h3>
       <dl>
-        <dt>문제</dt><dd>챗봇이 답을 만드는 동안 로그인, 시간표 조회 같은 일반 요청까지 같이 느려졌어요.</dd>
-        <dt>원인</dt><dd>동기 처리하는 Flask 서버 하나가 학사 데이터와 LLM 추론을 함께 맡고 있었어요.</dd>
-        <dt>해결</dt><dd>Flask는 인증·학사 데이터, FastAPI는 벡터 검색·LLM 추론만 맡게 나누고, 데이터도 종류별로 MySQL·MongoDB·ChromaDB에 나눠 담았어요.</dd>
+        <dt>문제</dt><dd>챗봇이 답을 만드는 동안 로그인, 시간표 조회 같은 일반 요청까지 같이 느려졌습니다.</dd>
+        <dt>원인</dt><dd>동기 처리하는 Flask 서버 하나가 학사 데이터와 LLM 추론을 함께 맡고 있었습니다.</dd>
+        <dt>해결</dt><dd>Flask는 인증·학사 데이터, FastAPI는 벡터 검색·LLM 추론만 맡게 나누고, 데이터도 종류별로 MySQL·MongoDB·ChromaDB에 나눠 담았습니다.</dd>
         <dt>결과</dt><dd class="res">LLM이 답하는 중에도 로그인·시간표 조회가 바로 처리됨</dd>
       </dl>
     </div>
@@ -269,9 +271,9 @@ footer a{color:var(--clover);text-decoration:none}
       <p class="where">다누시스 현장실습 · Vision AI</p>
       <h3>주말 내내 돌렸는데 12에폭밖에 안 된 학습</h3>
       <dl>
-        <dt>문제</dt><dd>객체 탐지 모델을 주말 내내 학습시켰는데 12에폭밖에 진행되지 않았어요.</dd>
-        <dt>원인</dt><dd>학습 로그를 보니 GPU가 아니라 CPU로 학습되고 있었어요.</dd>
-        <dt>해결</dt><dd>GPU로 전환하고, YOLOv8 n·m·l 세 모델을 val loss로 비교해 약 90에폭의 가장 안정적인 모델을 골랐어요. 트랙터·스쿠터 오탐지는 해당 클래스 데이터를 보완해 다시 학습했어요.</dd>
+        <dt>문제</dt><dd>객체 탐지 모델을 주말 내내 학습시켰는데 12에폭밖에 진행되지 않았습니다.</dd>
+        <dt>원인</dt><dd>학습 로그를 보니 GPU가 아니라 CPU로 학습되고 있었습니다.</dd>
+        <dt>해결</dt><dd>GPU로 전환하고, YOLOv8 n·m·l 세 모델을 val loss로 비교해 약 90에폭의 가장 안정적인 모델을 골랐습니다. 트랙터·스쿠터 오탐지는 해당 클래스 데이터를 보완해 다시 학습했습니다.</dd>
         <dt>결과</dt><dd class="res">학습이 정상 속도로 돌고, 오탐지가 잦던 클래스까지 보완한 모델 선정</dd>
       </dl>
     </div>
