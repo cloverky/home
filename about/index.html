@@ -1,0 +1,325 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>개발자 소개 — cloverky</title>
+<meta name="description" content="AI 에이전트 백엔드 개발자 cloverky 소개">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><g fill='%23226647'><circle cx='16' cy='8' r='6.4'/><circle cx='24' cy='16' r='6.4'/><circle cx='16' cy='24' r='6.4'/><circle cx='8' cy='16' r='6.4'/></g></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  color-scheme:light dark;
+  --paper:#F4F6FA;--raised:#FFFFFF;--ink:#12161D;--soft:#5A6478;--rule:#D8DCE6;--clover:#226647;--tint:#E3EFE8;
+  --mono:"IBM Plex Mono",ui-monospace,monospace;
+  --sans:"IBM Plex Sans KR","IBM Plex Sans",system-ui,sans-serif;
+  --shadow:0 2px 8px rgba(18,22,29,.06),0 1px 2px rgba(18,22,29,.05);
+}
+@media(prefers-color-scheme:dark){
+  :root{--paper:#0E1218;--raised:#161C25;--ink:#E7ECF3;--soft:#8590A3;--rule:#252E3B;--clover:#5ED39B;--tint:#16261F;--shadow:0 2px 8px rgba(0,0,0,.4)}
+}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);line-height:1.65;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--clover);outline-offset:3px;border-radius:3px}
+.wrap{max-width:920px;margin:0 auto;padding:0 24px}
+
+.back{position:sticky;top:0;z-index:5;padding:16px 0;background:linear-gradient(var(--paper) 70%,transparent)}
+.back a{display:inline-flex;align-items:center;gap:6px;padding:7px 14px;border:1px solid var(--rule);border-radius:999px;background:var(--raised);font-size:13px;text-decoration:none;color:var(--soft)}
+.back a:hover{color:var(--clover);border-color:var(--clover)}
+
+.label{margin:0 0 14px;font:600 12px var(--mono);letter-spacing:.12em;color:var(--clover)}
+section{padding:44px 0;border-top:1px solid var(--rule)}
+
+/* 상단 */
+.head{display:grid;grid-template-columns:200px 1fr;gap:36px;align-items:center;padding:20px 0 36px}
+.head svg{display:block;width:100%;overflow:visible;filter:drop-shadow(0 10px 18px rgba(18,22,29,.15))}
+.head h1{margin:0;font-size:clamp(34px,5vw,48px);line-height:1.15;letter-spacing:-.03em;font-family:var(--mono);font-weight:600}
+.head h1 span{color:var(--clover)}
+.role{margin:6px 0 18px;font-size:19px;font-weight:600}
+.facts{margin:0;display:grid;grid-template-columns:auto 1fr;gap:6px 16px;font-size:14.5px}
+.facts dt{color:var(--soft)}
+.facts dd{margin:0}
+.links{display:flex;gap:8px;margin-top:18px;flex-wrap:wrap}
+.links a{padding:8px 14px;border:1px solid var(--rule);border-radius:10px;background:var(--raised);font-size:13.5px;text-decoration:none}
+.links a:hover{border-color:var(--clover);color:var(--clover)}
+
+/* 숫자 카드 */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;padding-bottom:44px}
+.stat{padding:18px;border:1px solid var(--rule);border-radius:14px;background:var(--raised);box-shadow:var(--shadow)}
+.stat b{display:block;font:600 26px/1.2 var(--mono);color:var(--clover);letter-spacing:-.02em}
+.stat span{display:block;margin-top:6px;font-size:13px;color:var(--soft);word-break:keep-all}
+
+p{margin:0 0 14px;word-break:keep-all}
+.lead p{font-size:16.5px}
+
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.card{padding:20px;border:1px solid var(--rule);border-radius:14px;background:var(--raised);box-shadow:var(--shadow)}
+.card h3{margin:0 0 8px;font-size:16px}
+.card p{margin:0;font-size:14px;color:var(--soft)}
+
+/* 프로젝트 */
+.proj{display:grid;grid-template-columns:220px 1fr;gap:22px;padding:22px 0;border-bottom:1px dashed var(--rule)}
+.proj:last-child{border-bottom:0}
+.proj img{width:100%;aspect-ratio:3/2;object-fit:cover;object-position:top;border-radius:12px;border:1px solid var(--rule);display:block}
+.proj h3{margin:0;font-size:19px}
+.meta{margin:2px 0 10px;font:13px var(--mono);color:var(--soft)}
+.badge{display:inline-block;margin-left:6px;padding:2px 8px;border-radius:999px;background:var(--tint);color:var(--clover);font:600 11.5px var(--sans);vertical-align:2px}
+.proj ul{margin:8px 0 0;padding-left:18px;font-size:14.5px}
+.proj li{margin:3px 0;word-break:keep-all}
+.proj .my{margin:10px 0 0;font-size:13px;color:var(--soft)}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
+.tags span{padding:3px 9px;border-radius:7px;background:var(--tint);font:12px var(--mono);color:var(--ink)}
+.proj .go{display:flex;gap:12px;margin-top:12px;font-size:13.5px}
+.proj .go a{color:var(--clover);text-decoration:none}
+.proj .go a:hover{text-decoration:underline}
+
+/* 문제 해결 */
+.case{padding:22px;border:1px solid var(--rule);border-radius:14px;background:var(--raised);box-shadow:var(--shadow);margin-bottom:12px}
+.case .where{margin:0 0 4px;font:12.5px var(--mono);color:var(--clover)}
+.case h3{margin:0 0 14px;font-size:17px;word-break:keep-all}
+.case dl{margin:0;display:grid;grid-template-columns:44px 1fr;gap:8px 12px;font-size:14.5px}
+.case dt{font-weight:700;color:var(--soft)}
+.case dd{margin:0;word-break:keep-all}
+.case dd.res{font-weight:600;color:var(--clover)}
+
+/* 기술·경력 */
+.skills{display:grid;grid-template-columns:120px 1fr;gap:10px 18px;margin:0;font-size:14.5px}
+.skills dt{font:600 13px var(--mono);color:var(--clover);padding-top:2px}
+.skills dd{margin:0;word-break:keep-all}
+.tl{list-style:none;margin:0;padding:0}
+.tl li{display:grid;grid-template-columns:150px 1fr;gap:16px;padding:12px 0;border-bottom:1px dashed var(--rule);font-size:14.5px}
+.tl li:last-child{border-bottom:0}
+.tl time{font:13px var(--mono);color:var(--soft);padding-top:2px}
+.tl b{display:block}
+.tl span{color:var(--soft);font-size:13.5px;word-break:keep-all}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:40px}
+
+footer{padding:36px 0 56px;border-top:1px solid var(--rule);font:13px var(--mono);color:var(--soft);display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+footer a{color:var(--clover);text-decoration:none}
+
+@media(max-width:760px){
+  .head{grid-template-columns:1fr;gap:20px}
+  .head svg{width:170px}
+  .stats{grid-template-columns:repeat(2,1fr)}
+  .grid3,.two{grid-template-columns:1fr}
+  .proj{grid-template-columns:1fr}
+  .tl li{grid-template-columns:1fr;gap:2px}
+  .skills{grid-template-columns:1fr;gap:2px 0}
+  .skills dd{margin-bottom:10px}
+}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <nav class="back"><a href="/">← 메인</a></nav>
+
+  <header class="head">
+    <svg viewBox="-104 -104 208 240" role="img" aria-label="원티드 AI Championship 2026 인기상 수상 사진">
+      <defs>
+        <path id="lf" d="M0 0C10-27 44-56 74-38C95-24 92-4 60 0C92 4 95 24 74 38C44 56 10 27 0 0Z"/>
+        <clipPath id="cl"><use href="#lf" transform="rotate(-90)"/><use href="#lf"/><use href="#lf" transform="rotate(90)"/><use href="#lf" transform="rotate(180)"/></clipPath>
+      </defs>
+      <path d="M0 20C8 70 20 100 36 132" stroke="#2E7D4F" stroke-width="7" fill="none" stroke-linecap="round"/>
+      <g fill="#2E7D4F" stroke="#2E7D4F" stroke-width="9" stroke-linejoin="round"><use href="#lf" transform="rotate(-90)"/><use href="#lf"/><use href="#lf" transform="rotate(90)"/><use href="#lf" transform="rotate(180)"/></g>
+      <g clip-path="url(#cl)"><image href="/assets/award.jpg" x="-195.5" y="-280.3" width="375" height="500"/></g>
+    </svg>
+    <div>
+      <p class="label">DEVELOPER</p>
+      <h1>cloverky<span>.</span></h1>
+      <p class="role">AI 에이전트 백엔드 개발자</p>
+      <dl class="facts">
+        <dt>희망 직무</dt><dd>AI 에이전트 · 백엔드 개발</dd>
+        <dt>학력</dt><dd>동양미래대학교 AI소프트웨어학과 졸업 (2026.02)</dd>
+        <dt>출생</dt><dd>2004년생</dd>
+      </dl>
+      <div class="links">
+        <a href="https://github.com/cloverky" target="_blank" rel="noopener">GitHub ↗</a>
+        <a href="/">서비스 둘러보기</a>
+      </div>
+    </div>
+  </header>
+
+  <div class="stats">
+    <div class="stat"><b>🏆 인기상</b><span>원티드 AI Championship 2026 · 1,389팀 중 본선 투표 1위</span></div>
+    <div class="stat"><b>50%↓</b><span>Arda 동시 면접 4명 처리 시간</span></div>
+    <div class="stat"><b>86.2%</b><span>Arda 표정 분석 정확도 (74.9%에서)</span></div>
+    <div class="stat"><b>4개</b><span>직접 배포해서 운영 중인 서비스</span></div>
+  </div>
+
+  <section class="lead">
+    <p class="label">WHY DEVELOPER</p>
+    <p>새 기술도 기초부터 직접 확인하면서 익혀 왔어요. 전공동아리 AILab에서 파이썬 기초를 다지고, 2년 동안 데이터 분석·AI 모델링을 하고 Flask·Streamlit으로 서비스를 배포했어요.</p>
+    <p>여러 프로젝트를 하면서 제일 오래 붙잡고 있던 문제는 <b>사용자가 기다리거나 요청이 실패하는 순간</b>이었어요. 그래서 AI 모델을 사용자가 멈춤 없이 쓸 수 있는 서비스로 연결하는 AI 에이전트 백엔드 개발자를 목표로 하고 있어요.</p>
+    <p>AI 기능을 만드는 데서 끝내지 않고, 직접 배포해서 운영하고, 느려지면 재서 고쳐요.</p>
+  </section>
+
+  <section>
+    <p class="label">STRENGTHS</p>
+    <div class="grid3">
+      <div class="card"><h3>짐작 말고 측정</h3><p>문제가 생기면 고치기 전에 로그와 지표부터 봐요. 표정 분석 모델이 안 오르던 원인도, 학습이 느리던 원인도 재 보니 모델이 아니라 데이터와 실행 환경이었어요.</p></div>
+      <div class="card"><h3>모델과 서버를 같이 봐요</h3><p>AI 모델 성능만큼 서버 구조도 중요해요. LLM 추론 때문에 로그인까지 멈추던 서버를 역할별로 나눠, 답을 만드는 동안에도 다른 기능이 바로 돌게 했어요.</p></div>
+      <div class="card"><h3>직접 배포하고 운영해요</h3><p>Docker(Ubuntu·AWS) 환경을 만들고 Cloudflare·Vercel 배포를 자동화했어요. 지금도 서비스 4개를 직접 띄워 두고 운영하고 있어요.</p></div>
+    </div>
+  </section>
+
+  <section>
+    <p class="label">PROJECTS</p>
+
+    <article class="proj">
+      <img src="/assets/arda.webp" alt="Arda 화면">
+      <div>
+        <h3>Arda — AI 채용 플랫폼 <span class="badge">🏆 원티드 AI 대회 인기상</span></h3>
+        <p class="meta">4인 팀 · AI 에이전트 개발 · 2026.08 – 2026.10</p>
+        <p>지원자의 이력서와 자기소개서를 읽고 면접 질문을 만들고, 실시간 AI 면접에서 지원자 발언을 서류 내용과 대조해요.</p>
+        <ul>
+          <li>이력서 항목 뽑기, 자기소개서 기반 꼬리 질문, 서류-면접 발언 대조 기능 구현</li>
+          <li>LLM 응답을 JSON Schema로 고정해서 다음 단계에서 안정적으로 쓰게 함</li>
+          <li>Whisper 음성 인식 + ViT 표정 분석을 실시간 면접 파이프라인으로 연결</li>
+          <li>STT 비동기 대기열로 동시 면접 4명 처리 시간 50% 단축, 라벨 정제로 표정 정확도 74.9% → 86.2%</li>
+        </ul>
+        <div class="tags"><span>FastAPI</span><span>Python</span><span>LLM · JSON Schema</span><span>Whisper</span><span>ViT</span><span>Docker</span><span>AWS</span></div>
+        <div class="go"><a href="https://arda.cloverky.cloud" target="_blank" rel="noopener">사이트 ↗</a><a href="https://ats.cloverky.cloud" target="_blank" rel="noopener">문서 ↗</a></div>
+      </div>
+    </article>
+
+    <article class="proj">
+      <img src="/assets/yangdongi.png" alt="Yangdongi 화면">
+      <div>
+        <h3>양동이(Yangdongi) — 학사 정보 AI 챗봇 <span class="badge">졸업작품</span></h3>
+        <p class="meta">6인 팀 · 백엔드, AI 서빙 구조 설계 · 2025.03 – 2025.10</p>
+        <p>학점, 시간표, 공지를 대화로 물어보면 바로 답해 주는 RAG 기반 학사 챗봇이에요.</p>
+        <ul>
+          <li>Flask 서버 하나가 LLM 추론까지 하느라 로그인까지 멈추던 문제를 확인</li>
+          <li>Flask는 인증·학사 데이터·채팅 로그, FastAPI는 벡터 검색·LLM 추론만 맡도록 분리</li>
+          <li>학점·시간표는 MySQL, 크롤링한 공지는 MongoDB, 임베딩은 ChromaDB로 저장소도 분리</li>
+        </ul>
+        <div class="tags"><span>Flask</span><span>FastAPI</span><span>LangChain</span><span>MySQL</span><span>MongoDB</span><span>ChromaDB</span></div>
+        <div class="go"><a href="https://yangdongi.cloverky.cloud" target="_blank" rel="noopener">사이트 ↗</a><a href="https://ask.cloverky.cloud" target="_blank" rel="noopener">문서 ↗</a></div>
+      </div>
+    </article>
+
+    <article class="proj">
+      <img src="/assets/fridge.png" alt="FridgeAI 화면" style="object-position:left top">
+      <div>
+        <h3>FridgeAI — AI 냉장고 관리 <span class="badge">KDT 개인작품</span></h3>
+        <p class="meta">1인 개발 · 레드햇 과정</p>
+        <p>냉장고 재료를 관리하고, 남은 재료로 만들 수 있는 레시피를 AI가 추천해 줘요.</p>
+        <ul>
+          <li>기획부터 프론트·백엔드·배포까지 혼자 전부</li>
+          <li>내 PC GPU(8GB)에 EXAONE 7.8B를 vLLM으로 올리고 Cloudflare 터널로 LLM 서버 직접 운영</li>
+          <li>여러 프로젝트 API를 FastAPI 서버 하나로 묶어 운영, 구글 소셜 로그인 구현</li>
+        </ul>
+        <div class="tags"><span>Next.js</span><span>FastAPI</span><span>vLLM</span><span>EXAONE</span><span>Docker</span><span>Cloudflare</span></div>
+        <div class="go"><a href="https://fridge.cloverky.cloud" target="_blank" rel="noopener">사이트 ↗</a><a href="https://pantry.cloverky.cloud" target="_blank" rel="noopener">문서 ↗</a></div>
+      </div>
+    </article>
+
+    <article class="proj">
+      <img src="/assets/yaksok.png" alt="Yaksok 화면">
+      <div>
+        <h3>Yaksok — 알약 인식 · 복약 상담 <span class="badge">문체부 공모전 출품</span></h3>
+        <p class="meta">팀 SEUK</p>
+        <p>알약을 카메라로 비추면 모양·색·각인을 읽어 식약처 DB와 맞춰 보고, 복약 상담까지 이어 줘요.</p>
+        <ul>
+          <li>공공데이터 API로 알약 2만 7천여 건을 모아 DB에 넣고, 인식 결과와 맞춰 보는 기능 구현</li>
+          <li>복약 상담 화면을 상담 API와 연결하고 사용자 건강정보를 같이 넘기도록 구현</li>
+        </ul>
+        <div class="tags"><span>React</span><span>FastAPI</span><span>Gemini Vision</span><span>PostgreSQL</span><span>Docker</span></div>
+        <div class="go"><a href="https://yaksok.cloverky.cloud" target="_blank" rel="noopener">사이트 ↗</a><a href="https://pill.cloverky.cloud" target="_blank" rel="noopener">문서 ↗</a></div>
+      </div>
+    </article>
+  </section>
+
+  <section>
+    <p class="label">PROBLEM SOLVING</p>
+
+    <div class="case">
+      <p class="where">Arda · 백엔드</p>
+      <h3>동시 면접자가 늘수록 면접이 느려지던 문제</h3>
+      <dl>
+        <dt>문제</dt><dd>동시 면접자가 늘수록 다음 질문이 나오기까지 시간이 점점 길어졌어요.</dd>
+        <dt>원인</dt><dd>처리 흐름을 단계별로 재 보니, 다음 질문이 이전 답변의 STT 변환이 끝나기를 기다리느라 멈춰 있었어요.</dd>
+        <dt>해결</dt><dd>면접은 STT를 기다리지 않고 계속 진행하고, STT 변환은 async 비동기 대기열에서 순서대로 처리하게 바꿨어요.</dd>
+        <dt>결과</dt><dd class="res">동시 면접 4명 기준 처리 시간 50% 단축</dd>
+      </dl>
+    </div>
+
+    <div class="case">
+      <p class="where">Arda · AI 모델</p>
+      <h3>아무리 학습해도 오르지 않던 표정 분석 정확도</h3>
+      <dl>
+        <dt>문제</dt><dd>표정 분류 ViT 모델의 정확도가 좀처럼 오르지 않았어요.</dd>
+        <dt>원인</dt><dd>모델을 바꾸기 전에 표정별 결과를 확인해 보니 '역겨움' 정밀도가 5.9%였고, 원인은 모델이 아니라 부정확한 데이터 라벨이었어요.</dd>
+        <dt>해결</dt><dd>라벨을 교체하고 학습 설정을 바로잡았어요.</dd>
+        <dt>결과</dt><dd class="res">전체 정확도 74.9% → 86.2%, 역겨움 정밀도 5.9% → 64.2%</dd>
+      </dl>
+    </div>
+
+    <div class="case">
+      <p class="where">양동이 · 서버 구조</p>
+      <h3>LLM이 답하는 동안 로그인까지 멈추던 서버</h3>
+      <dl>
+        <dt>문제</dt><dd>챗봇이 답을 만드는 동안 로그인, 시간표 조회 같은 일반 요청까지 같이 느려졌어요.</dd>
+        <dt>원인</dt><dd>동기 처리하는 Flask 서버 하나가 학사 데이터와 LLM 추론을 함께 맡고 있었어요.</dd>
+        <dt>해결</dt><dd>Flask는 인증·학사 데이터, FastAPI는 벡터 검색·LLM 추론만 맡게 나누고, 데이터도 종류별로 MySQL·MongoDB·ChromaDB에 나눠 담았어요.</dd>
+        <dt>결과</dt><dd class="res">LLM이 답하는 중에도 로그인·시간표 조회가 바로 처리됨</dd>
+      </dl>
+    </div>
+
+    <div class="case">
+      <p class="where">다누시스 현장실습 · Vision AI</p>
+      <h3>주말 내내 돌렸는데 12에폭밖에 안 된 학습</h3>
+      <dl>
+        <dt>문제</dt><dd>객체 탐지 모델을 주말 내내 학습시켰는데 12에폭밖에 진행되지 않았어요.</dd>
+        <dt>원인</dt><dd>학습 로그를 보니 GPU가 아니라 CPU로 학습되고 있었어요.</dd>
+        <dt>해결</dt><dd>GPU로 전환하고, YOLOv8 n·m·l 세 모델을 val loss로 비교해 약 90에폭의 가장 안정적인 모델을 골랐어요. 트랙터·스쿠터 오탐지는 해당 클래스 데이터를 보완해 다시 학습했어요.</dd>
+        <dt>결과</dt><dd class="res">학습이 정상 속도로 돌고, 오탐지가 잦던 클래스까지 보완한 모델 선정</dd>
+      </dl>
+    </div>
+  </section>
+
+  <section>
+    <p class="label">SKILLS</p>
+    <dl class="skills">
+      <dt>FastAPI</dt><dd>async 기반 STT 비동기 대기열, LLM 추론·벡터 검색 전담 서버 분리</dd>
+      <dt>LLM · RAG</dt><dd>LangChain + ChromaDB RAG, JSON Schema로 응답 형식 고정, LangGraph 멀티 에이전트, Neo4j 하이브리드 RAG, MCP 서버</dd>
+      <dt>AI 모델</dt><dd>Whisper STT, ViT 표정 분석, YOLOv8 비교·선정, vLLM으로 LLM 직접 서빙</dd>
+      <dt>Infra</dt><dd>Docker(Ubuntu·AWS), Cloudflare 터널, Vercel 배포 자동화</dd>
+      <dt>DB</dt><dd>MySQL, PostgreSQL, MongoDB, ChromaDB를 데이터 종류별로 나눠 설계</dd>
+      <dt>보안</dt><dd>SHA-256 + 사용자별 Salt 단방향 해시로 비밀번호 저장</dd>
+      <dt>AI 도구</dt><dd>Claude Code를 개발 흐름에 붙여 코드 작성·오류 수정 속도 개선</dd>
+    </dl>
+  </section>
+
+  <section class="two">
+    <div>
+      <p class="label">EXPERIENCE</p>
+      <ul class="tl">
+        <li><time>2026.04 – 10</time><div><b>[IBM x RedHat] AI Transformation AX Academy 7기</b><span>대한상공회의소 · LangGraph 멀티 에이전트, Neo4j 하이브리드 RAG, MCP 실습. 4인 팀으로 Arda를 기획부터 배포까지 개발하고 현직 엔지니어 코드 리뷰 반영</span></div></li>
+        <li><time>2025.06 – 08</time><div><b>다누시스 현장실습 인턴 (6주)</b><span>재난안전 데이터 분석, 이미지 303장 라벨링으로 6개 클래스 데이터셋 구축, YOLOv8 모델 학습</span></div></li>
+        <li><time>2023.02 – 2026.02</time><div><b>동양미래대학교 AI소프트웨어학과 졸업</b><span>전공동아리 AILab, 졸업작품 양동이</span></div></li>
+      </ul>
+    </div>
+    <div>
+      <p class="label">AWARDS · 공모전</p>
+      <ul class="tl">
+        <li><time>2026</time><div><b>원티드 AI Championship 2026 인기상</b><span>Arda · 1,389팀 중 본선 투표 1위</span></div></li>
+        <li><time>2026</time><div><b>문화체육관광 디지털혁신 공모전 출품</b><span>Yaksok</span></div></li>
+        <li><time>2026</time><div><b>공공기관 AI 혁신 챌린지 출품</b></div></li>
+        <li><time>2026</time><div><b>충청북도 공공데이터·AI 활용 창업경진대회 출품</b></div></li>
+      </ul>
+    </div>
+  </section>
+
+  <footer>
+    <span>© 2026 cloverky.cloud</span>
+    <span><a href="https://github.com/cloverky" target="_blank" rel="noopener">github.com/cloverky ↗</a> · <a href="/">메인으로</a></span>
+  </footer>
+</div>
+
+</body>
+</html>

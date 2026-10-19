@@ -306,7 +306,7 @@ body{
   <canvas class="intro-field"></canvas>
   <div class="intro-brand"><svg viewBox="0 0 32 32" aria-hidden="true"><g fill="currentColor"><circle cx="16" cy="8" r="6.4"/><circle cx="24" cy="16" r="6.4"/><circle cx="16" cy="24" r="6.4"/><circle cx="8" cy="16" r="6.4"/></g></svg><span>cloverky<span class="intro-tld">.cloud</span></span></div>
   <svg class="intro-stem" aria-hidden="true"><path stroke="#226647" stroke-width="9" fill="none" stroke-linecap="round"/></svg>
-  <figure class="intro-photo" role="button" tabindex="0" aria-label="원티드 AI Championship 2026 인기상 수상 사진 크게 보기"><svg viewBox="-104 -104 208 240" aria-hidden="true"><defs><path id="ip-leaf" d="M0 0C10-27 44-56 74-38C95-24 92-4 60 0C92 4 95 24 74 38C44 56 10 27 0 0Z"/><clipPath id="ip-clip"><use href="#ip-leaf" transform="rotate(-90)"/><use href="#ip-leaf" transform="rotate(0)"/><use href="#ip-leaf" transform="rotate(90)"/><use href="#ip-leaf" transform="rotate(180)"/></clipPath></defs><path d="M0 20C8 70 20 100 36 132" stroke="#2E7D4F" stroke-width="7" fill="none" stroke-linecap="round"/><g fill="#2E7D4F" stroke="#2E7D4F" stroke-width="9" stroke-linejoin="round"><use href="#ip-leaf" transform="rotate(-90)"/><use href="#ip-leaf" transform="rotate(0)"/><use href="#ip-leaf" transform="rotate(90)"/><use href="#ip-leaf" transform="rotate(180)"/></g><g clip-path="url(#ip-clip)"><image href="assets/award.jpg" x="-195.5" y="-280.3" width="375" height="500"/></g></svg><figcaption>원티드 AI Championship 2026<br>인기상 🏆</figcaption></figure>
+  <figure class="intro-photo" role="button" tabindex="0" aria-label="원티드 AI Championship 2026 인기상 수상 사진 크게 보기"><svg viewBox="-104 -104 208 240" aria-hidden="true"><defs><path id="ip-leaf" d="M0 0C10-27 44-56 74-38C95-24 92-4 60 0C92 4 95 24 74 38C44 56 10 27 0 0Z"/><clipPath id="ip-clip"><use href="#ip-leaf" transform="rotate(-90)"/><use href="#ip-leaf" transform="rotate(0)"/><use href="#ip-leaf" transform="rotate(90)"/><use href="#ip-leaf" transform="rotate(180)"/></clipPath></defs><path d="M0 20C8 70 20 100 36 132" stroke="#2E7D4F" stroke-width="7" fill="none" stroke-linecap="round"/><g fill="#2E7D4F" stroke="#2E7D4F" stroke-width="9" stroke-linejoin="round"><use href="#ip-leaf" transform="rotate(-90)"/><use href="#ip-leaf" transform="rotate(0)"/><use href="#ip-leaf" transform="rotate(90)"/><use href="#ip-leaf" transform="rotate(180)"/></g><g clip-path="url(#ip-clip)"><image href="assets/award.jpg" x="-195.5" y="-280.3" width="375" height="500"/></g></svg><figcaption>🏆원티드 AI Championship 2026 인기상<br>1,389팀 중 본선 투표 1위</figcaption></figure>
   <div class="intro-lightbox" hidden><img src="assets/award.jpg" alt="원티드 AI Championship 2026 인기상 수상 사진"></div>
   <div class="intro-cta"><button type="button" data-go="me">개발자 소개</button><button type="button" data-go="projects">프로젝트 소개</button></div>
 </div>
@@ -545,11 +545,6 @@ let start=null,target=0,p=0,parked=false,auto=null;
 // 다 내려앉으면 인트로를 지우지 않고 숨겨 둔다 — 페이지 맨 위에서 위로 스크롤하면 다시 네잎으로 돌아감
 function park(){parked=true;p=target=1;intro.classList.add('out')}
 function unpark(){if(!parked)return;parked=false;intro.classList.remove('out');requestAnimationFrame(render)}
-// 개발자 소개: 인트로를 걷고 챗봇 '소개' 칩을 대신 눌러 준다. p는 그대로 둬서 위로 스크롤하면 네잎으로 돌아옴
-function meet(){
-  parked=true;intro.classList.add('out');
-  document.querySelector('.chip[data-q="cloverky가 누구야?"]').click();
-}
 const push=d=>{auto=null;target=clamp(target+d)};
 intro.addEventListener('wheel',e=>{e.preventDefault();push(e.deltaY/900)},{passive:false});
 let ty=null;
@@ -566,7 +561,7 @@ addEventListener('wheel',e=>{if(parked&&e.deltaY<0&&atTop(e)){unpark();push(e.de
 let wy=null;
 addEventListener('touchstart',e=>{wy=e.touches[0].clientY},{passive:true});
 addEventListener('touchmove',e=>{if(parked&&wy!==null&&e.touches[0].clientY-wy>40&&atTop(e)){unpark();target=.7}},{passive:true});
-cta.querySelector('[data-go="me"]').addEventListener('click',meet);
+cta.querySelector('[data-go="me"]').addEventListener('click',()=>{location.href='/about'});
 // 버튼으로 내려앉을 땐 스크롤보다 천천히, 정해진 시간 동안
 cta.querySelector('[data-go="projects"]').addEventListener('click',()=>{auto={from:p,t0:null}});
 // 수상 사진 네잎을 누르면 크게, 아무 데나 누르거나 Esc로 닫기
