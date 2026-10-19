@@ -261,6 +261,8 @@ body{
   .projects{gap:8px;overflow-x:auto;justify-content:flex-start;padding-bottom:48px}
   .proj{width:150px;flex:none}
   .proj-card{width:150px;height:100px}
+  /* 좁은 카드에선 배지가 문서 아이콘에 가리지 않게 단어 단위로 줄바꿈 */
+  .proj-badge{white-space:normal;word-break:keep-all;max-width:calc(100% - 44px);line-height:1.3;border-radius:8px}
 }
 
 /* intro: 클로버 들판에서 네잎을 누르면 잎 4장(프로젝트)이 열리고, 스크롤하면 아래 카드 자리로 내려앉는다.
@@ -300,7 +302,8 @@ body{
   box-shadow:0 6px 18px rgba(34,102,71,.35);animation:intro-hop 1s ease-in-out infinite;
 }
 .intro-click::after{content:"";position:absolute;left:50%;bottom:-6px;margin-left:-7px;border:7px solid transparent;border-bottom:0;border-top-color:#226647}
-.intro-cap{position:absolute;left:0;right:0;bottom:30px;z-index:3;margin:0;text-align:center;font:13px var(--mono);color:#5A6478;pointer-events:none;animation:intro-bob 1.6s ease-in-out infinite}
+.intro:not(.found) .intro-cap{display:none}
+.intro-cap{position:absolute;left:0;right:0;bottom:28px;z-index:4;width:max-content;max-width:calc(100% - 32px);margin:0 auto;padding:8px 18px;border-radius:999px;background:rgba(255,255,255,.92);box-shadow:0 4px 14px rgba(18,22,29,.12);text-align:center;font:500 14px var(--mono);color:#12161D;pointer-events:none;animation:intro-bob 1.6s ease-in-out infinite}
 .intro-skip{position:absolute;right:16px;top:16px;z-index:3;font:500 12px var(--mono);background:none;border:0;color:#5A6478;cursor:pointer;text-decoration:underline}
 @keyframes intro-hop{50%{transform:translate(-50%,calc(-100% - 8px))}}
 @keyframes intro-bob{50%{transform:translateY(6px)}}
@@ -315,7 +318,7 @@ body{
   <figure class="intro-photo" role="button" tabindex="0" aria-label="원티드 AI Championship 2026 인기상 수상 사진 크게 보기"><svg viewBox="-104 -104 208 240" aria-hidden="true"><defs><path id="ip-leaf" d="M0 0C10-27 44-56 74-38C95-24 92-4 60 0C92 4 95 24 74 38C44 56 10 27 0 0Z"/><clipPath id="ip-clip"><use href="#ip-leaf" transform="rotate(-90)"/><use href="#ip-leaf" transform="rotate(0)"/><use href="#ip-leaf" transform="rotate(90)"/><use href="#ip-leaf" transform="rotate(180)"/></clipPath></defs><path d="M0 20C8 70 20 100 36 132" stroke="#2E7D4F" stroke-width="7" fill="none" stroke-linecap="round"/><g fill="#2E7D4F" stroke="#2E7D4F" stroke-width="9" stroke-linejoin="round"><use href="#ip-leaf" transform="rotate(-90)"/><use href="#ip-leaf" transform="rotate(0)"/><use href="#ip-leaf" transform="rotate(90)"/><use href="#ip-leaf" transform="rotate(180)"/></g><g clip-path="url(#ip-clip)"><image href="assets/award.jpg" x="-195.5" y="-280.3" width="375" height="500"/></g></svg><figcaption>원티드 AI Championship 2026<br>인기상 🏆</figcaption></figure>
   <div class="intro-lightbox" hidden><img src="assets/award.jpg" alt="원티드 AI Championship 2026 인기상 수상 사진"></div>
   <button class="intro-click" type="button">CLICK ME!</button>
-  <p class="intro-cap">✦ 네잎클로버를 찾아보세요</p>
+  <p class="intro-cap">🍀 아래로 스크롤하면 잎이 내려앉아요</p>
   <button class="intro-skip" type="button">건너뛰기 →</button>
 </div>
 
@@ -349,7 +352,7 @@ body{
         <div class="proj-thumb thumb-arda">
           <img src="assets/arda.webp" alt="Arda">
         </div>
-        <span class="proj-badge">원티드 AI 출품</span>
+        <span class="proj-badge">🏆 원티드 AI 대회 인기상</span>
         <a class="proj-docs" href="https://ats.cloverky.cloud" target="_blank" rel="noopener" title="Arda 문서" aria-label="Arda 문서"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3v4a1 1 0 0 0 1 1h4"/><path d="M17 21H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7l5 5v11a2 2 0 0 1-2 2z"/><path d="M9 13h6M9 17h6"/></svg></a>
       </div>
       <a class="proj-name" href="https://arda.cloverky.cloud" target="_blank" rel="noopener">Arda</a>
@@ -556,7 +559,6 @@ const near=(e,L)=>Math.hypot(e.clientX-L.x,e.clientY-L.y)<L.s*1.4;
 function find(){
   if(found)return;
   found=lastT;lp=luckyAt(lastT);intro.classList.add('found');photo.style.pointerEvents='none';cm.remove();cv.style.cursor='';
-  cap.textContent='🍀 찾았다! — 아래로 스크롤하면 잎이 내려앉아요';
 }
 // 다 내려앉으면 인트로를 지우지 않고 숨겨 둔다 — 페이지 맨 위에서 위로 스크롤하면 다시 클로버로 돌아감
 function park(){parked=true;p=target=1;intro.classList.add('out')}
@@ -601,7 +603,6 @@ function render(t){
   const dpr=devicePixelRatio||1,W=innerWidth,H=innerHeight;
   if(cv.width!==W*dpr||cv.height!==H*dpr){cv.width=W*dpr;cv.height=H*dpr}
   if(t>3500)hint=true;
-  if(hint&&!found&&!cap.dataset.h){cap.dataset.h=1;cap.textContent='✦ 반짝이는 네잎클로버를 눌러보세요'}
   const f=found?ease(clamp((t-found)/1400)):0;
 
   if(f<1){
