@@ -511,7 +511,7 @@ items.sort((a,b)=>a.y-b.y);
 const lucky={x:.63,y:.7,rot:.4,ph:1,l:62};
 const size=(it,W)=>it.l*lerp(.35,1.2,it.y)*Math.min(1,W/900+.3);
 const swayOf=(it,s,t)=>Math.sin(t/1100+it.ph+it.x*3)*s*.18;
-// 토끼풀 잎: 끝이 오목한 하트 모양 + 가운데 잎맥 + 연한 V자 무늬
+// 토끼풀 잎: 끝이 오목한 하트 모양
 function leaflet(s){
   ctx.beginPath();ctx.moveTo(0,0);
   ctx.bezierCurveTo(s*.12,-s*.32,s*.5,-s*.62,s*.82,-s*.4);
@@ -527,12 +527,6 @@ function clover(x,y,s,rot,n,hue,light,sat){
   for(let i=0;i<n;i++){
     ctx.save();ctx.rotate(i*Math.PI*2/n+(i%2?.06:-.04));
     leaflet(s);ctx.fillStyle=`hsl(${hue},${sat}%,${light+(i%2)*3}%)`;ctx.fill();
-    if(s>8){
-      ctx.lineWidth=s*.035;ctx.strokeStyle=`hsla(${hue},40%,${light-12}%,.55)`;
-      ctx.beginPath();ctx.moveTo(s*.05,0);ctx.lineTo(s*.74,0);ctx.stroke();
-      ctx.lineWidth=s*.07;ctx.strokeStyle='rgba(235,245,225,.35)';
-      ctx.beginPath();ctx.moveTo(s*.62,-s*.3);ctx.quadraticCurveTo(s*.42,-s*.05,s*.4,0);ctx.quadraticCurveTo(s*.42,s*.05,s*.62,s*.3);ctx.stroke();
-    }
     ctx.restore();
   }
   ctx.restore();
@@ -600,7 +594,7 @@ function render(t){
       const s=size(it,W);let x=it.x*W+swayOf(it,s,t),y=it.y*H;
       // 찾으면 세잎들이 네잎 기준으로 밀려남
       if(f){const dx=x-tx,dy=y-ty,d=Math.hypot(dx,dy)||1;x+=dx/d*f*W*.7;y+=dy/d*f*W*.7}
-      clover(x,y,s,it.rot,3,105+it.ph*3.5,lerp(58,30,it.y),42);
+      clover(x,y,s,it.rot,3,132+it.ph*1.5,lerp(62,32,it.y),45);
     }
     if(!found){
       const L=luckyAt(t),pulse=hint?1+.12*(Math.sin(t/220)+1)/2:1;
@@ -609,7 +603,7 @@ function render(t){
       const hr=L.s*(hint?2.4:1.9)*(1+.08*Math.sin(t/300)),hg=ctx.createRadialGradient(L.x,L.y,0,L.x,L.y,hr);
       hg.addColorStop(0,'rgba(255,244,180,.75)');hg.addColorStop(1,'rgba(255,244,180,0)');
       ctx.fillStyle=hg;ctx.beginPath();ctx.arc(L.x,L.y,hr,0,7);ctx.fill();
-      clover(L.x,L.y,L.s*pulse,lucky.rot,4,118,40,55);
+      clover(L.x,L.y,L.s*pulse,lucky.rot,4,130,42,58);
       ctx.fillStyle='rgba(255,236,150,.95)';
       const n=hint?6:4;
       for(let i=0;i<n;i++){const a=t/1500+i*6.28/n,tw=(Math.sin(t/250+i*2)+1)/2;star(L.x+Math.cos(a)*L.s*1.1,L.y-L.s*.4+Math.sin(a)*L.s*.8,3+tw*(hint?9:6))}
