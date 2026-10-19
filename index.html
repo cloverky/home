@@ -280,7 +280,7 @@ body{
 .intro-brand svg{width:28px;height:28px;color:#226647}
 .intro-tld{color:#226647}
 /* 수상 사진을 네잎클로버 모양으로 오려 둔다 (SVG clipPath로 하트 잎 4장) */
-.intro-photo{position:absolute;left:5vw;top:26vh;z-index:2;margin:0;width:clamp(170px,16vw,240px);cursor:zoom-in;transform-origin:50% 100%;animation:intro-sway 4s ease-in-out infinite;filter:drop-shadow(0 10px 18px rgba(18,22,29,.18))}
+.intro-photo{position:absolute;left:5vw;top:26vh;z-index:2;margin:0;width:clamp(170px,16vw,240px);cursor:zoom-in;transform:rotate(-3deg);filter:drop-shadow(0 10px 18px rgba(18,22,29,.18))}
 .intro-photo svg{display:block;width:100%;overflow:visible}
 .intro-photo figcaption{width:max-content;margin:8px auto 0;padding:4px 12px;border-radius:999px;background:rgba(255,255,255,.85);font:500 11.5px/1.5 var(--mono);color:#3F4A5C;text-align:center}
 .intro-photo:hover svg{transform:scale(1.04)}
@@ -288,24 +288,24 @@ body{
 .intro-lightbox{position:absolute;inset:0;z-index:5;display:flex;align-items:center;justify-content:center;padding:24px;background:rgba(12,24,17,.72);cursor:zoom-out}
 .intro-lightbox[hidden]{display:none}
 .intro-lightbox img{max-width:100%;max-height:88vh;border-radius:12px;box-shadow:0 20px 60px rgba(0,0,0,.4)}
-@keyframes intro-sway{0%,100%{transform:rotate(-5deg)}50%{transform:rotate(-1deg)}}
 @media(max-width:700px){.intro-photo{display:none}}
 .intro-stem{position:absolute;z-index:1;width:1px;height:1px;overflow:visible}
 .intro:not(.found) .intro-leaf{display:none}
 .intro-leaf{position:absolute;z-index:2;overflow:hidden;border:3px solid #226647;background:#fff;box-shadow:0 10px 30px rgba(18,22,29,.15)}
 .intro-leaf img{width:100%;height:100%;object-fit:cover;object-position:top;display:block}
+/* FridgeAI 스크린샷은 글씨가 왼쪽에 있어서 왼쪽을 붙여 보여 준다 */
+.intro-leaf[data-name="FridgeAI"] img{object-position:left top}
 .intro-leaf::after{content:"";position:absolute;inset:0;background:#226647;opacity:var(--g,1)}
+.intro.found .intro-click{display:none}
 .intro-click{
   position:absolute;z-index:3;transform:translate(-50%,-100%);
   font:700 14px var(--mono);letter-spacing:.04em;color:#fff;background:#226647;
   border:0;border-radius:999px;padding:8px 16px;cursor:pointer;
-  box-shadow:0 6px 18px rgba(34,102,71,.35);animation:intro-hop 1s ease-in-out infinite;
+  box-shadow:0 6px 18px rgba(34,102,71,.35);
 }
 .intro-click::after{content:"";position:absolute;left:50%;bottom:-6px;margin-left:-7px;border:7px solid transparent;border-bottom:0;border-top-color:#226647}
 .intro:not(.found) .intro-cap{display:none}
-.intro-cap{position:absolute;left:0;right:0;bottom:28px;z-index:4;width:max-content;max-width:calc(100% - 32px);margin:0 auto;padding:8px 18px;border-radius:999px;background:rgba(255,255,255,.92);box-shadow:0 4px 14px rgba(18,22,29,.12);text-align:center;font:500 14px var(--mono);color:#12161D;pointer-events:none;animation:intro-bob 1.6s ease-in-out infinite}
-@keyframes intro-hop{50%{transform:translate(-50%,calc(-100% - 8px))}}
-@keyframes intro-bob{50%{transform:translateY(6px)}}
+.intro-cap{position:absolute;left:0;right:0;bottom:28px;z-index:4;width:max-content;max-width:calc(100% - 32px);margin:0 auto;padding:8px 18px;border-radius:999px;background:rgba(255,255,255,.92);box-shadow:0 4px 14px rgba(18,22,29,.12);text-align:center;font:500 14px var(--mono);color:#12161D;pointer-events:none}
 </style>
 </head>
 <body>
@@ -316,7 +316,8 @@ body{
   <svg class="intro-stem" aria-hidden="true"><path stroke="#226647" stroke-width="9" fill="none" stroke-linecap="round"/></svg>
   <figure class="intro-photo" role="button" tabindex="0" aria-label="원티드 AI Championship 2026 인기상 수상 사진 크게 보기"><svg viewBox="-104 -104 208 240" aria-hidden="true"><defs><path id="ip-leaf" d="M0 0C10-27 44-56 74-38C95-24 92-4 60 0C92 4 95 24 74 38C44 56 10 27 0 0Z"/><clipPath id="ip-clip"><use href="#ip-leaf" transform="rotate(-90)"/><use href="#ip-leaf" transform="rotate(0)"/><use href="#ip-leaf" transform="rotate(90)"/><use href="#ip-leaf" transform="rotate(180)"/></clipPath></defs><path d="M0 20C8 70 20 100 36 132" stroke="#2E7D4F" stroke-width="7" fill="none" stroke-linecap="round"/><g fill="#2E7D4F" stroke="#2E7D4F" stroke-width="9" stroke-linejoin="round"><use href="#ip-leaf" transform="rotate(-90)"/><use href="#ip-leaf" transform="rotate(0)"/><use href="#ip-leaf" transform="rotate(90)"/><use href="#ip-leaf" transform="rotate(180)"/></g><g clip-path="url(#ip-clip)"><image href="assets/award.jpg" x="-195.5" y="-280.3" width="375" height="500"/></g></svg><figcaption>원티드 AI Championship 2026<br>인기상 🏆</figcaption></figure>
   <div class="intro-lightbox" hidden><img src="assets/award.jpg" alt="원티드 AI Championship 2026 인기상 수상 사진"></div>
-  <button class="intro-click" type="button">CLICK ME!</button>
+  <button class="intro-click" type="button" data-go="projects">프로젝트 소개</button>
+  <button class="intro-click" type="button" data-go="me">개발자 소개</button>
   <p class="intro-cap">🍀 아래로 스크롤하면 잎이 내려앉아요</p>
 </div>
 
@@ -511,10 +512,10 @@ document.getElementById('chips').addEventListener('click',e=>{const c=e.target.c
 const intro=document.getElementById('intro');
 if(matchMedia('(prefers-reduced-motion: reduce)').matches){intro.remove();return}
 const cv=intro.querySelector('.intro-field'),ctx=cv.getContext('2d');
-const photo=intro.querySelector('.intro-photo'),brand=intro.querySelector('.intro-brand'),cap=intro.querySelector('.intro-cap'),cm=intro.querySelector('.intro-click');
+const photo=intro.querySelector('.intro-photo'),brand=intro.querySelector('.intro-brand'),cap=intro.querySelector('.intro-cap');
 const stem=intro.querySelector('.intro-stem'),path=stem.querySelector('path');
 const cards=[...document.querySelectorAll('.proj-card')];
-const leaves=cards.map(c=>{const d=document.createElement('div');d.className='intro-leaf';d.innerHTML=`<img src="${c.querySelector('img').src}" alt="">`;intro.appendChild(d);return d});
+const leaves=cards.map(c=>{const d=document.createElement('div');d.className='intro-leaf';d.dataset.name=c.querySelector('img').alt;d.innerHTML=`<img src="${c.querySelector('img').src}" alt="">`;intro.appendChild(d);return d});
 const clamp=x=>Math.min(1,Math.max(0,x)),lerp=(a,b,t)=>a+(b-a)*t,ease=t=>t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;
 
 // 들판: 매번 같은 배치가 나오게 고정 시드
@@ -522,9 +523,13 @@ let seed=7;const rnd=()=>(seed=(seed*16807)%2147483647)/2147483647;
 const items=[];
 for(let i=0;i<260;i++)items.push({x:rnd(),y:lerp(.22,1.08,rnd()),rot:rnd()*6.28,ph:rnd()*6.28,l:lerp(24,46,rnd())});
 items.sort((a,b)=>a.y-b.y);
-const lucky={x:.63,y:.7,rot:.4,ph:1,l:62};
+// 빛나는 네잎 두 개: 하나는 프로젝트(잎 4장이 열림), 하나는 개발자 소개(챗봇이 소개를 답함)
+const [btnProjects,btnMe]=intro.querySelectorAll('.intro-click');
+const lucky={x:.66,y:.7,rot:.4,ph:1,l:62,btn:btnProjects};
+const luckyMe={x:.36,y:.76,rot:1.15,ph:2.5,l:62,btn:btnMe};
+const luckies=[lucky,luckyMe];
 const size=(it,W)=>it.l*lerp(.35,1.2,it.y)*Math.min(1,W/900+.3);
-const swayOf=(it,s,t)=>Math.sin(t/1100+it.ph+it.x*3)*s*.18;
+const swayOf=(it,s,t)=>Math.sin(t/1600+it.ph+it.x*3)*s*.1;
 // 토끼풀 잎: 끝이 오목한 하트 모양
 function leaflet(s){
   ctx.beginPath();ctx.moveTo(0,0);
@@ -551,18 +556,23 @@ function star(x,y,r){ctx.beginPath();for(let i=0;i<8;i++){const a=i*Math.PI/4,rr
 const q=[[-1,-1],[1,-1],[-1,1],[1,1]];
 const R=[[.5,.5,0,.5],[.5,.5,.5,0],[.5,0,.5,.5],[0,.5,.5,.5]];
 
-let found=0,hint=false,lp=null,lastT=0,target=0,p=0,parked=false;
-const luckyAt=t=>{const W=innerWidth,H=innerHeight,s=size(lucky,W);return{x:lucky.x*W+swayOf(lucky,s,t),y:lucky.y*H,s}};
+let found=0,lp=null,lastT=0,target=0,p=0,parked=false;
+const luckyAt=(t,k=lucky)=>{const W=innerWidth,H=innerHeight,s=size(k,W);return{x:k.x*W+swayOf(k,s,t),y:k.y*H,s}};
 const near=(e,L)=>Math.hypot(e.clientX-L.x,e.clientY-L.y)<L.s*1.4;
 function find(){
   if(found)return;
-  found=lastT;lp=luckyAt(lastT);intro.classList.add('found');photo.style.pointerEvents='none';cm.remove();cv.style.cursor='';
+  found=lastT;lp=luckyAt(lastT);intro.classList.add('found');photo.style.pointerEvents='none';cv.style.cursor='';
 }
 // 다 내려앉으면 인트로를 지우지 않고 숨겨 둔다 — 페이지 맨 위에서 위로 스크롤하면 다시 클로버로 돌아감
 function park(){parked=true;p=target=1;intro.classList.add('out')}
+// 개발자 소개: 들판을 걷고 챗봇 '소개' 칩을 대신 눌러 준다. p는 0으로 둬서 위로 스크롤하면 들판으로 돌아옴
+function meet(){
+  parked=true;intro.classList.add('out');
+  document.querySelector('.chip[data-q="cloverky가 누구야?"]').click();
+}
 function unpark(){if(!parked)return;parked=false;intro.classList.remove('out');requestAnimationFrame(render)}
 // 네잎을 찾기 전엔 스크롤하려 하면 힌트만 세게, 찾은 뒤엔 스크롤이 잎을 카드 자리로 보낸다
-const push=d=>{if(!found){hint=true;return}target=clamp(target+d)};
+const push=d=>{if(!found)return;target=clamp(target+d)};
 intro.addEventListener('wheel',e=>{e.preventDefault();push(e.deltaY/900)},{passive:false});
 let ty=null;
 intro.addEventListener('touchstart',e=>{ty=e.touches[0].clientY},{passive:true});
@@ -578,9 +588,11 @@ addEventListener('wheel',e=>{if(parked&&e.deltaY<0&&atTop(e)){unpark();push(e.de
 let wy=null;
 addEventListener('touchstart',e=>{wy=e.touches[0].clientY},{passive:true});
 addEventListener('touchmove',e=>{if(parked&&wy!==null&&e.touches[0].clientY-wy>40&&atTop(e)){unpark();target=.7}},{passive:true});
-cv.addEventListener('mousemove',e=>{if(!found)cv.style.cursor=near(e,luckyAt(lastT))?'pointer':''});
-cv.addEventListener('click',e=>{if(near(e,luckyAt(lastT)))find()});
-cm.addEventListener('click',find);
+const hit=e=>luckies.find(k=>near(e,luckyAt(lastT,k)));
+cv.addEventListener('mousemove',e=>{if(!found)cv.style.cursor=hit(e)?'pointer':''});
+cv.addEventListener('click',e=>{const k=hit(e);if(k===lucky)find();else if(k)meet()});
+btnProjects.addEventListener('click',find);
+btnMe.addEventListener('click',meet);
 // 수상 사진 네잎을 누르면 크게, 아무 데나 누르거나 Esc로 닫기
 const lb=intro.querySelector('.intro-lightbox');
 photo.addEventListener('click',()=>{lb.hidden=false});
@@ -595,7 +607,6 @@ function render(t){
   if(target===1&&p>.97){park();return}
   const dpr=devicePixelRatio||1,W=innerWidth,H=innerHeight;
   if(cv.width!==W*dpr||cv.height!==H*dpr){cv.width=W*dpr;cv.height=H*dpr}
-  if(t>3500)hint=true;
   const f=found?ease(clamp((t-found)/1400)):0;
 
   if(f<1){
@@ -609,17 +620,18 @@ function render(t){
       if(f){const dx=x-tx,dy=y-ty,d=Math.hypot(dx,dy)||1;x+=dx/d*f*W*.7;y+=dy/d*f*W*.7}
       clover(x,y,s,it.rot,3,132+it.ph*1.5,lerp(62,32,it.y),45);
     }
-    if(!found){
-      const L=luckyAt(t),pulse=hint?1+.12*(Math.sin(t/220)+1)/2:1;
-      cm.style.left=L.x+'px';cm.style.top=(L.y-L.s*1.15)+'px';
+    for(const k of luckies){
+      if(found&&k===lucky)continue;
+      const L=luckyAt(t,k);
+      if(f){const dx=L.x-tx,dy=L.y-ty,d=Math.hypot(dx,dy)||1;L.x+=dx/d*f*W*.7;L.y+=dy/d*f*W*.7}
+      k.btn.style.left=L.x+'px';k.btn.style.top=(L.y-L.s*1.15)+'px';
       // 네잎 뒤에 은은한 햇빛 — 잎 자체는 다른 클로버와 같은 질감으로 둔다
-      const hr=L.s*(hint?2.4:1.9)*(1+.08*Math.sin(t/300)),hg=ctx.createRadialGradient(L.x,L.y,0,L.x,L.y,hr);
+      const hr=L.s*1.9*(1+.04*Math.sin(t/900+k.ph)),hg=ctx.createRadialGradient(L.x,L.y,0,L.x,L.y,hr);
       hg.addColorStop(0,'rgba(255,244,180,.75)');hg.addColorStop(1,'rgba(255,244,180,0)');
       ctx.fillStyle=hg;ctx.beginPath();ctx.arc(L.x,L.y,hr,0,7);ctx.fill();
-      clover(L.x,L.y,L.s*pulse,lucky.rot,4,130,42,58);
+      clover(L.x,L.y,L.s,k.rot,4,130,42,58);
       ctx.fillStyle='rgba(255,236,150,.95)';
-      const n=hint?6:4;
-      for(let i=0;i<n;i++){const a=t/1500+i*6.28/n,tw=(Math.sin(t/250+i*2)+1)/2;star(L.x+Math.cos(a)*L.s*1.1,L.y-L.s*.4+Math.sin(a)*L.s*.8,3+tw*(hint?9:6))}
+      for(let i=0;i<3;i++){const a=t/4000+k.ph+i*2.09,tw=(Math.sin(t/700+i*2)+1)/2;star(L.x+Math.cos(a)*L.s*1.1,L.y-L.s*.4+Math.sin(a)*L.s*.8,2+tw*3)}
     }
   }
   cv.style.opacity=1-f;
