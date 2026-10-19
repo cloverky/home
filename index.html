@@ -294,6 +294,9 @@ body{
 .intro-leaf img{width:100%;height:100%;object-fit:cover;object-position:top;display:block}
 /* FridgeAI 스크린샷은 글씨가 왼쪽에 있어서 네모난 잎에선 살짝 왼쪽을 보여 준다 */
 .intro-leaf[data-name="FridgeAI"] img{object-position:25% top}
+/* 우측 하단 수상 캐릭터 — 움직이는 webp라 CSS 움직임은 없음 (넓은 화면에서만, 네잎과 안 겹치게) */
+.intro-me{position:absolute;right:3vw;bottom:2vh;z-index:3;height:min(46vh,420px);pointer-events:none;filter:drop-shadow(0 12px 20px rgba(18,40,25,.2))}
+@media(max-width:1200px){.intro-me{display:none}}
 /* 첫 화면 아래 버튼 두 개 */
 .intro-cta{position:absolute;left:0;right:0;bottom:5vh;z-index:4;display:flex;justify-content:center;gap:12px;padding:0 16px}
 .intro-cta button{padding:13px 24px;border:0;border-radius:999px;cursor:pointer;font:700 15px var(--sans);color:#fff;background:#226647;box-shadow:0 8px 22px rgba(34,102,71,.3);transition:transform .15s,box-shadow .15s}
@@ -308,6 +311,7 @@ body{
   <svg class="intro-stem" aria-hidden="true"><path stroke="#226647" stroke-width="9" fill="none" stroke-linecap="round"/></svg>
   <figure class="intro-photo" role="button" tabindex="0" aria-label="원티드 AI Championship 2026 인기상 수상 사진 크게 보기"><svg viewBox="-104 -104 208 240" aria-hidden="true"><defs><path id="ip-leaf" d="M0 0C10-27 44-56 74-38C95-24 92-4 60 0C92 4 95 24 74 38C44 56 10 27 0 0Z"/><clipPath id="ip-clip"><use href="#ip-leaf" transform="rotate(-90)"/><use href="#ip-leaf" transform="rotate(0)"/><use href="#ip-leaf" transform="rotate(90)"/><use href="#ip-leaf" transform="rotate(180)"/></clipPath></defs><path d="M0 20C8 70 20 100 36 132" stroke="#2E7D4F" stroke-width="7" fill="none" stroke-linecap="round"/><g fill="#2E7D4F" stroke="#2E7D4F" stroke-width="9" stroke-linejoin="round"><use href="#ip-leaf" transform="rotate(-90)"/><use href="#ip-leaf" transform="rotate(0)"/><use href="#ip-leaf" transform="rotate(90)"/><use href="#ip-leaf" transform="rotate(180)"/></g><g clip-path="url(#ip-clip)"><image href="assets/award.jpg" x="-195.5" y="-280.3" width="375" height="500"/></g></svg><figcaption>🏆원티드 AI Championship 2026 인기상<br>1,389팀 중 본선 투표 1위</figcaption></figure>
   <div class="intro-lightbox" hidden><img src="assets/award.jpg" alt="원티드 AI Championship 2026 인기상 수상 사진"></div>
+  <img class="intro-me" src="assets/me.webp" alt="" decoding="async">
   <div class="intro-cta"><button type="button" data-go="me">개발자 소개</button><button type="button" data-go="projects">프로젝트 소개</button></div>
 </div>
 
@@ -502,7 +506,7 @@ document.getElementById('chips').addEventListener('click',e=>{const c=e.target.c
 const intro=document.getElementById('intro');
 if(matchMedia('(prefers-reduced-motion: reduce)').matches){intro.remove();return}
 const cv=intro.querySelector('.intro-field'),ctx=cv.getContext('2d');
-const photo=intro.querySelector('.intro-photo'),brand=intro.querySelector('.intro-brand'),cta=intro.querySelector('.intro-cta');
+const me=intro.querySelector('.intro-me'),photo=intro.querySelector('.intro-photo'),brand=intro.querySelector('.intro-brand'),cta=intro.querySelector('.intro-cta');
 const stem=intro.querySelector('.intro-stem'),path=stem.querySelector('path');
 const cards=[...document.querySelectorAll('.proj-card')];
 const leaves=cards.map(c=>{const d=document.createElement('div');d.className='intro-leaf';d.dataset.name=c.querySelector('img').alt;d.innerHTML=`<img src="${c.querySelector('img').src}" alt="">`;intro.appendChild(d);return d});
@@ -590,7 +594,7 @@ function render(t){
   }
   // 들판은 뒤에 은은하게만
   cv.style.opacity=.55*(1-out);
-  brand.style.opacity=photo.style.opacity=cta.style.opacity=1-clamp(p*4);
+  brand.style.opacity=photo.style.opacity=me.style.opacity=cta.style.opacity=1-clamp(p*4);
   cta.style.pointerEvents=p>.1?'none':'';
   intro.style.setProperty('--bg',1-clamp((p-.4)/.5));
 
