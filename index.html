@@ -304,7 +304,6 @@ body{
 .intro-click::after{content:"";position:absolute;left:50%;bottom:-6px;margin-left:-7px;border:7px solid transparent;border-bottom:0;border-top-color:#226647}
 .intro:not(.found) .intro-cap{display:none}
 .intro-cap{position:absolute;left:0;right:0;bottom:28px;z-index:4;width:max-content;max-width:calc(100% - 32px);margin:0 auto;padding:8px 18px;border-radius:999px;background:rgba(255,255,255,.92);box-shadow:0 4px 14px rgba(18,22,29,.12);text-align:center;font:500 14px var(--mono);color:#12161D;pointer-events:none;animation:intro-bob 1.6s ease-in-out infinite}
-.intro-skip{position:absolute;right:16px;top:16px;z-index:3;font:500 12px var(--mono);background:none;border:0;color:#5A6478;cursor:pointer;text-decoration:underline}
 @keyframes intro-hop{50%{transform:translate(-50%,calc(-100% - 8px))}}
 @keyframes intro-bob{50%{transform:translateY(6px)}}
 </style>
@@ -319,7 +318,6 @@ body{
   <div class="intro-lightbox" hidden><img src="assets/award.jpg" alt="원티드 AI Championship 2026 인기상 수상 사진"></div>
   <button class="intro-click" type="button">CLICK ME!</button>
   <p class="intro-cap">🍀 아래로 스크롤하면 잎이 내려앉아요</p>
-  <button class="intro-skip" type="button">건너뛰기 →</button>
 </div>
 
 <div class="center" id="center">
@@ -513,7 +511,7 @@ document.getElementById('chips').addEventListener('click',e=>{const c=e.target.c
 const intro=document.getElementById('intro');
 if(matchMedia('(prefers-reduced-motion: reduce)').matches){intro.remove();return}
 const cv=intro.querySelector('.intro-field'),ctx=cv.getContext('2d');
-const photo=intro.querySelector('.intro-photo'),brand=intro.querySelector('.intro-brand'),cap=intro.querySelector('.intro-cap'),cm=intro.querySelector('.intro-click'),skip=intro.querySelector('.intro-skip');
+const photo=intro.querySelector('.intro-photo'),brand=intro.querySelector('.intro-brand'),cap=intro.querySelector('.intro-cap'),cm=intro.querySelector('.intro-click');
 const stem=intro.querySelector('.intro-stem'),path=stem.querySelector('path');
 const cards=[...document.querySelectorAll('.proj-card')];
 const leaves=cards.map(c=>{const d=document.createElement('div');d.className='intro-leaf';d.innerHTML=`<img src="${c.querySelector('img').src}" alt="">`;intro.appendChild(d);return d});
@@ -563,10 +561,6 @@ function find(){
 // 다 내려앉으면 인트로를 지우지 않고 숨겨 둔다 — 페이지 맨 위에서 위로 스크롤하면 다시 클로버로 돌아감
 function park(){parked=true;p=target=1;intro.classList.add('out')}
 function unpark(){if(!parked)return;parked=false;intro.classList.remove('out');requestAnimationFrame(render)}
-function skipIntro(){
-  if(!found){find();found=lastT-1400}
-  park();
-}
 // 네잎을 찾기 전엔 스크롤하려 하면 힌트만 세게, 찾은 뒤엔 스크롤이 잎을 카드 자리로 보낸다
 const push=d=>{if(!found){hint=true;return}target=clamp(target+d)};
 intro.addEventListener('wheel',e=>{e.preventDefault();push(e.deltaY/900)},{passive:false});
@@ -587,7 +581,6 @@ addEventListener('touchmove',e=>{if(parked&&wy!==null&&e.touches[0].clientY-wy>4
 cv.addEventListener('mousemove',e=>{if(!found)cv.style.cursor=near(e,luckyAt(lastT))?'pointer':''});
 cv.addEventListener('click',e=>{if(near(e,luckyAt(lastT)))find()});
 cm.addEventListener('click',find);
-skip.addEventListener('click',skipIntro);
 // 수상 사진 네잎을 누르면 크게, 아무 데나 누르거나 Esc로 닫기
 const lb=intro.querySelector('.intro-lightbox');
 photo.addEventListener('click',()=>{lb.hidden=false});
@@ -633,7 +626,7 @@ function render(t){
   brand.style.opacity=photo.style.opacity=1-f;
   if(!found)return;
 
-  cap.style.opacity=skip.style.opacity=1-clamp(p*8);
+  cap.style.opacity=1-clamp(p*8);
   intro.style.setProperty('--bg',1-clamp((p-.4)/.5));
   const Sf=Math.min(W*.42,H*.37),C={x:lerp(lp.x,W/2,f),y:lerp(lp.y,H*.5,f)},S=lerp(lp.s*.55,Sf,f);
   const sway=Math.sin(t/900)*3*f,spin=(1-f)*360,reveal=clamp((t-found-900)/700);
