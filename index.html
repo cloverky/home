@@ -262,9 +262,49 @@ body{
   .proj{width:150px;flex:none}
   .proj-card{width:150px;height:100px}
 }
+
+/* intro: 클로버 들판에서 네잎을 누르면 잎 4장(프로젝트)이 열리고, 스크롤하면 아래 카드 자리로 내려앉는다.
+   들판은 다크 모드에서도 같은 장면이라 색을 고정한다 */
+.intro{position:fixed;inset:0;z-index:100;overflow:hidden;touch-action:none;transition:opacity .4s}
+.intro::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 50% 55%,#fff 0%,#E3EFE8 75%);opacity:var(--bg,1)}
+.intro.out{opacity:0;pointer-events:none}
+.intro-field{position:absolute;inset:0;width:100%;height:100%}
+.intro-brand{
+  position:absolute;left:50%;top:12vh;transform:translateX(-50%);z-index:2;pointer-events:none;
+  display:flex;align-items:center;gap:10px;padding:8px 18px;border-radius:999px;
+  background:rgba(255,255,255,.75);backdrop-filter:blur(6px);
+  font:600 clamp(20px,4vw,30px) var(--mono);letter-spacing:-.02em;color:#12161D;white-space:nowrap;
+}
+.intro-brand svg{width:28px;height:28px;color:#226647}
+.intro-tld{color:#226647}
+.intro-stem{position:absolute;z-index:1;width:1px;height:1px;overflow:visible}
+.intro:not(.found) .intro-leaf{display:none}
+.intro-leaf{position:absolute;z-index:2;overflow:hidden;border:3px solid #226647;background:#fff;box-shadow:0 10px 30px rgba(18,22,29,.15)}
+.intro-leaf img{width:100%;height:100%;object-fit:cover;object-position:top;display:block}
+.intro-leaf::after{content:"";position:absolute;inset:0;background:#226647;opacity:var(--g,1)}
+.intro-click{
+  position:absolute;z-index:3;transform:translate(-50%,-100%);
+  font:700 14px var(--mono);letter-spacing:.04em;color:#fff;background:#226647;
+  border:0;border-radius:999px;padding:8px 16px;cursor:pointer;
+  box-shadow:0 6px 18px rgba(34,102,71,.35);animation:intro-hop 1s ease-in-out infinite;
+}
+.intro-click::after{content:"";position:absolute;left:50%;bottom:-6px;margin-left:-7px;border:7px solid transparent;border-bottom:0;border-top-color:#226647}
+.intro-cap{position:absolute;left:0;right:0;bottom:30px;z-index:3;margin:0;text-align:center;font:13px var(--mono);color:#5A6478;pointer-events:none;animation:intro-bob 1.6s ease-in-out infinite}
+.intro-skip{position:absolute;right:16px;top:16px;z-index:3;font:500 12px var(--mono);background:none;border:0;color:#5A6478;cursor:pointer;text-decoration:underline}
+@keyframes intro-hop{50%{transform:translate(-50%,calc(-100% - 8px))}}
+@keyframes intro-bob{50%{transform:translateY(6px)}}
 </style>
 </head>
 <body>
+
+<div class="intro" id="intro">
+  <canvas class="intro-field"></canvas>
+  <div class="intro-brand"><svg viewBox="0 0 32 32" aria-hidden="true"><g fill="currentColor"><circle cx="16" cy="8" r="6.4"/><circle cx="24" cy="16" r="6.4"/><circle cx="16" cy="24" r="6.4"/><circle cx="8" cy="16" r="6.4"/></g></svg><span>cloverky<span class="intro-tld">.cloud</span></span></div>
+  <svg class="intro-stem" aria-hidden="true"><path stroke="#226647" stroke-width="9" fill="none" stroke-linecap="round"/></svg>
+  <button class="intro-click" type="button">CLICK ME!</button>
+  <p class="intro-cap">✦ 네잎클로버를 찾아보세요</p>
+  <button class="intro-skip" type="button">건너뛰기 →</button>
+</div>
 
 <div class="center" id="center">
 
@@ -451,6 +491,119 @@ document.getElementById('logo').addEventListener('click',()=>{
   },260);
 });
 document.getElementById('chips').addEventListener('click',e=>{const c=e.target.closest('.chip');if(c)send(c.dataset.q);});
+</script>
+<script>
+(()=>{
+const intro=document.getElementById('intro');
+if(matchMedia('(prefers-reduced-motion: reduce)').matches){intro.remove();return}
+const cv=intro.querySelector('.intro-field'),ctx=cv.getContext('2d');
+const brand=intro.querySelector('.intro-brand'),cap=intro.querySelector('.intro-cap'),cm=intro.querySelector('.intro-click'),skip=intro.querySelector('.intro-skip');
+const stem=intro.querySelector('.intro-stem'),path=stem.querySelector('path');
+const cards=[...document.querySelectorAll('.proj-card')];
+const leaves=cards.map(c=>{const d=document.createElement('div');d.className='intro-leaf';d.innerHTML=`<img src="${c.querySelector('img').src}" alt="">`;intro.appendChild(d);return d});
+const clamp=x=>Math.min(1,Math.max(0,x)),lerp=(a,b,t)=>a+(b-a)*t,ease=t=>t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;
+
+// 들판: 매번 같은 배치가 나오게 고정 시드
+let seed=7;const rnd=()=>(seed=(seed*16807)%2147483647)/2147483647;
+const items=[];
+for(let i=0;i<260;i++)items.push({x:rnd(),y:lerp(.22,1.08,rnd()),rot:rnd()*6.28,ph:rnd()*6.28,l:lerp(24,46,rnd())});
+items.sort((a,b)=>a.y-b.y);
+const lucky={x:.63,y:.7,rot:.4,ph:1,l:44};
+const size=(it,W)=>it.l*lerp(.35,1.2,it.y)*Math.min(1,W/900+.3);
+const swayOf=(it,s,t)=>Math.sin(t/1100+it.ph+it.x*3)*s*.18;
+function clover(x,y,s,rot,n,light,glow){
+  ctx.save();ctx.translate(x,y);
+  ctx.strokeStyle=`hsl(140,40%,${light-8}%)`;ctx.lineWidth=s*.12;ctx.beginPath();ctx.moveTo(0,0);ctx.quadraticCurveTo(s*.2,s*.8,s*.1,s*1.6);ctx.stroke();
+  if(glow){ctx.shadowColor='rgba(255,215,90,.95)';ctx.shadowBlur=glow}
+  ctx.rotate(rot);ctx.fillStyle=glow?'hsl(135,60%,45%)':`hsl(${140+(n%2)*6},45%,${light}%)`;
+  for(let i=0;i<n;i++){const a=i*Math.PI*2/n;ctx.beginPath();ctx.ellipse(Math.cos(a)*s*.48,Math.sin(a)*s*.48,s*.5,s*.4,a,0,7);ctx.fill()}
+  ctx.restore();
+}
+function star(x,y,r){ctx.beginPath();for(let i=0;i<8;i++){const a=i*Math.PI/4,rr=i%2?r*.3:r;ctx.lineTo(x+Math.cos(a)*rr,y+Math.sin(a)*rr)}ctx.fill()}
+
+// 잎 배치: 왼위, 오위, 왼아래, 오아래 — 뾰족한 모서리가 가운데를 향하게 [tl,tr,br,bl]
+const q=[[-1,-1],[1,-1],[-1,1],[1,1]];
+const R=[[.5,.5,0,.5],[.5,.5,.5,0],[.5,0,.5,.5],[0,.5,.5,.5]];
+
+let found=0,hint=false,lp=null,lastT=0,target=0,p=0,done=false;
+const luckyAt=t=>{const W=innerWidth,H=innerHeight,s=size(lucky,W);return{x:lucky.x*W+swayOf(lucky,s,t),y:lucky.y*H,s}};
+const near=(e,L)=>Math.hypot(e.clientX-L.x,e.clientY-L.y)<L.s*1.4;
+function find(){
+  if(found)return;
+  found=lastT;lp=luckyAt(lastT);intro.classList.add('found');cm.remove();cv.style.cursor='';
+  cap.textContent='🍀 찾았다! — 아래로 스크롤하면 잎이 내려앉아요';
+}
+function finish(){
+  if(done)return;
+  done=true;intro.classList.add('out');setTimeout(()=>intro.remove(),400);
+}
+// 네잎을 찾기 전엔 스크롤하려 하면 힌트만 세게, 찾은 뒤엔 스크롤이 잎을 카드 자리로 보낸다
+const push=d=>{if(!found){hint=true;return}target=clamp(target+d)};
+intro.addEventListener('wheel',e=>{e.preventDefault();push(e.deltaY/900)},{passive:false});
+let ty=null;
+intro.addEventListener('touchstart',e=>{ty=e.touches[0].clientY},{passive:true});
+intro.addEventListener('touchmove',e=>{e.preventDefault();const y=e.touches[0].clientY;push((ty-y)/500);ty=y},{passive:false});
+addEventListener('keydown',e=>{if(done)return;if(e.key==='ArrowDown'||e.key==='PageDown')push(.25);if(e.key==='ArrowUp'||e.key==='PageUp')push(-.25)});
+cv.addEventListener('mousemove',e=>{if(!found)cv.style.cursor=near(e,luckyAt(lastT))?'pointer':''});
+cv.addEventListener('click',e=>{if(near(e,luckyAt(lastT)))find()});
+cm.addEventListener('click',find);
+skip.addEventListener('click',finish);
+
+function render(t){
+  if(done)return;
+  requestAnimationFrame(render);
+  lastT=t;p+=(target-p)*.12;
+  if(target===1&&p>.97){finish();return}
+  const dpr=devicePixelRatio||1,W=innerWidth,H=innerHeight;
+  if(cv.width!==W*dpr||cv.height!==H*dpr){cv.width=W*dpr;cv.height=H*dpr}
+  if(t>3500)hint=true;
+  if(hint&&!found&&!cap.dataset.h){cap.dataset.h=1;cap.textContent='✦ 반짝이는 네잎클로버를 눌러보세요'}
+  const f=found?ease(clamp((t-found)/1400)):0;
+
+  if(f<1){
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+    const g=ctx.createLinearGradient(0,0,0,H);g.addColorStop(0,'#F4F9F5');g.addColorStop(.3,'#DCEFE2');g.addColorStop(1,'#9CCDAE');
+    ctx.fillStyle=g;ctx.fillRect(0,0,W,H);
+    const tx=lucky.x*W,ty=lucky.y*H;
+    for(const it of items){
+      const s=size(it,W);let x=it.x*W+swayOf(it,s,t),y=it.y*H;
+      // 찾으면 세잎들이 네잎 기준으로 밀려남
+      if(f){const dx=x-tx,dy=y-ty,d=Math.hypot(dx,dy)||1;x+=dx/d*f*W*.7;y+=dy/d*f*W*.7}
+      clover(x,y,s,it.rot,3,lerp(62,32,it.y),0);
+    }
+    if(!found){
+      const L=luckyAt(t),pulse=hint?1+.12*(Math.sin(t/220)+1)/2:1;
+      cm.style.left=L.x+'px';cm.style.top=(L.y-L.s*1.15)+'px';
+      clover(L.x,L.y,L.s*pulse,lucky.rot,4,40,(hint?60:34)+Math.sin(t/300)*14);
+      ctx.fillStyle='rgba(255,236,150,.95)';
+      const n=hint?6:4;
+      for(let i=0;i<n;i++){const a=t/1500+i*6.28/n,tw=(Math.sin(t/250+i*2)+1)/2;star(L.x+Math.cos(a)*L.s*1.1,L.y-L.s*.4+Math.sin(a)*L.s*.8,3+tw*(hint?9:6))}
+    }
+  }
+  cv.style.opacity=1-f;
+  brand.style.opacity=1-f;
+  if(!found)return;
+
+  cap.style.opacity=skip.style.opacity=1-clamp(p*8);
+  intro.style.setProperty('--bg',1-clamp((p-.4)/.5));
+  const Sf=Math.min(W*.42,H*.37),C={x:lerp(lp.x,W/2,f),y:lerp(lp.y,H*.5,f)},S=lerp(lp.s*.55,Sf,f);
+  const sway=Math.sin(t/900)*3*f,spin=(1-f)*360,reveal=clamp((t-found-900)/700);
+  leaves.forEach((d,k)=>{
+    const e=ease(clamp((p-k*.08)/.6)),ang=(sway+spin)*(1-e);
+    const a=ang*Math.PI/180,ox=q[k][0]*(S/2+3*f),oy=q[k][1]*(S/2+3*f);
+    const x0=C.x+ox*Math.cos(a)-oy*Math.sin(a),y0=C.y+ox*Math.sin(a)+oy*Math.cos(a);
+    // 실제 카드 자리로 내려앉음
+    const r=cards[k].getBoundingClientRect(),x1=r.left+r.width/2,y1=r.top+r.height/2;
+    const x=lerp(x0,x1,e),y=lerp(y0,y1,e)-Math.sin(e*Math.PI)*H*.15;
+    const w=lerp(S,r.width,e),h=lerp(S,r.height,e);
+    d.style.cssText=`left:${x-w/2}px;top:${y-h/2}px;width:${w}px;height:${h}px;--g:${(1-reveal)*(1-e)};border-width:${lerp(1,3,f)*(1-e)+e}px;`+
+      `border-radius:${R[k].map(v=>lerp(v*S,12,e)+'px').join(' ')};transform:rotate(${ang+Math.sin(e*Math.PI)*25*(k%2?1:-1)}deg)`;
+  });
+  stem.style.cssText=`left:${C.x}px;top:${C.y}px;opacity:${f*(1-clamp(p*5))}`;
+  path.setAttribute('d',`M0 0 C ${10+sway} ${S*.9}, ${40+sway*2} ${S*1.3}, ${70+sway*3} ${S*1.7}`);
+}
+requestAnimationFrame(render);
+})();
 </script>
 </body>
 </html>
